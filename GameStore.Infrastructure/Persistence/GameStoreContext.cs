@@ -1,4 +1,5 @@
 ﻿using GameStore.Domain.Entities;
+using GameStore.Infrastructure.Persistence.Configurations;
 using Microsoft.EntityFrameworkCore;
 
 namespace GameStore.Infrastructure.Persistence;
@@ -19,4 +20,9 @@ public class GameStoreContext : DbContext
     public DbSet<PlatformType> Platforms { get; set; }
 
     public DbSet<Comment> Comments { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(GameConfiguration).Assembly);
+    }
 }
