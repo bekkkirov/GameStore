@@ -10,4 +10,8 @@
     <Folder Include="Controllers\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\GameStore.Infrastructure\GameStore.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
