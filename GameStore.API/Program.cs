@@ -1,3 +1,5 @@
+using GameStore.API.Extensions;
+
 namespace GameStore.API
 {
     public class Program
@@ -8,6 +10,7 @@ namespace GameStore.API
 
 
             builder.Services.AddControllers();
+            builder.Services.AddGameStoreContext(builder.Configuration);
 
             var app = builder.Build();
 
