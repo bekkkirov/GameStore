@@ -13,6 +13,8 @@ namespace GameStore.API
             builder.Services.AddControllers();
             builder.Services.AddGameStoreContext(builder.Configuration);
             builder.Services.AddRepositories();
+            builder.Services.AddAutoMapper();
+            builder.Services.AddFluentValidators();
             builder.Services.AddApplicationServices();
 
             var app = builder.Build();
