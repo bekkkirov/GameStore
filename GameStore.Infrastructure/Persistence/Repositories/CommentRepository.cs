@@ -12,7 +12,8 @@ public class CommentRepository : BaseRepository<Comment>, ICommentRepository
 
     public async Task<IEnumerable<Comment>> GetByGameKeyAsync(string key)
     {
-        return await _dbSet.Where(c => c.Game.Key == key)
+        return await _dbSet.Where(c => c.Game.Key == key &&  c.ParentCommentId == null)
+                           .Include(c => c.Author)
                            .Include(c => c.Replies)
                            .ToListAsync();
     }
