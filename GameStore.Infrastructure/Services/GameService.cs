@@ -75,18 +75,6 @@ public class GameService : IGameService
         return _mapper.Map<IEnumerable<GameModel>>(games);
     }
 
-    public MemoryStream DownloadGame(string key)
-    {
-        var memoryStream = new MemoryStream();
-
-        using (var binaryWriter = new BinaryWriter(memoryStream))
-        {
-            binaryWriter.Write(key);
-        }
-
-        return memoryStream;
-    }
-
     private async Task AddGenresAndPlatforms(Game game, List<int> genreIds, List<int> platformIds)
     {
         foreach (var id in genreIds)

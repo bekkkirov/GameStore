@@ -17,6 +17,4 @@ public interface IGameService
     Task UpdateAsync(string key, GameCreateModel game);
 
     Task DeleteAsync(int gameId);
-
-    MemoryStream DownloadGame(string key);
 }
