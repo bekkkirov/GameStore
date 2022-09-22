@@ -19,7 +19,9 @@ public class GameRepository : BaseRepository<Game>, IGameRepository
 
     public async Task<Game> GetByKeyAsync(string key)
     {
-        return await _dbSet.FirstOrDefaultAsync(g => g.Key == key);
+        return await _dbSet.Include(g => g.Genres)
+                           .Include(g => g.PlatformTypes)
+                           .FirstOrDefaultAsync(g => g.Key == key);
     } 
 
     public async Task<IEnumerable<Game>> GetByGenreAsync(int genreId)
