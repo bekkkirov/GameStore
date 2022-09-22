@@ -19,6 +19,8 @@ namespace GameStore.API
 
             var app = builder.Build();
 
+            app.ConfigureExceptionHandler();
+
             using (var scope = app.Services.CreateScope())
             {
                 await DatabaseSeeder.SeedDatabase(scope.ServiceProvider.GetRequiredService<IUnitOfWork>());
