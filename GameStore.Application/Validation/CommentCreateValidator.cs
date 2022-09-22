@@ -12,9 +12,5 @@ public class CommentCreateValidator : AbstractValidator<CommentCreateModel>
             .WithMessage("Comment can't be empty.")
             .MaximumLength(250)
             .WithMessage("Comment length can't exceed 250 characters.");
-
-        RuleFor(c => c.GameId)
-            .GreaterThan(0)
-            .WithMessage("Incorrect game id.");
     }
 }
