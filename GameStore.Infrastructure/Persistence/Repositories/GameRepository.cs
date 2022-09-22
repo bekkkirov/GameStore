@@ -10,6 +10,13 @@ public class GameRepository : BaseRepository<Game>, IGameRepository
     {
     }
 
+    public async Task<IEnumerable<Game>> GetWithPlatformsAndGenres()
+    {
+        return await _dbSet.Include(g => g.Genres)
+                           .Include(g => g.PlatformTypes)
+                           .ToListAsync();
+    }
+
     public async Task<Game> GetByKeyAsync(string key)
     {
         return await _dbSet.FirstOrDefaultAsync(g => g.Key == key);
@@ -18,12 +25,16 @@ public class GameRepository : BaseRepository<Game>, IGameRepository
     public async Task<IEnumerable<Game>> GetByGenreAsync(int genreId)
     {
         return await _dbSet.Where(g => g.Genres.Any(g => g.Id == genreId))
+                           .Include(g => g.Genres)
+                           .Include(g => g.PlatformTypes)
                            .ToListAsync();
     }
 
     public async Task<IEnumerable<Game>> GetByPlatformAsync(int platformId)
     {
         return await _dbSet.Where(g => g.PlatformTypes.Any(pt => pt.Id == platformId))
+                           .Include(g => g.Genres)
+                           .Include(g => g.PlatformTypes)
                            .ToListAsync();
     }
 }
