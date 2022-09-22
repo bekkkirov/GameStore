@@ -1,13 +1,14 @@
 using GameStore.API.Extensions;
+using GameStore.Application.Persistence;
+using GameStore.Infrastructure.Persistence.Seed;
 
 namespace GameStore.API
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
 
             builder.Services.AddControllers();
             builder.Services.AddGameStoreContext(builder.Configuration);
@@ -15,6 +16,10 @@ namespace GameStore.API
 
             var app = builder.Build();
 
+            using (var scope = app.Services.CreateScope())
+            {
+                await DatabaseSeeder.SeedDatabase(scope.ServiceProvider.GetRequiredService<IUnitOfWork>());
+            }
 
             app.UseHttpsRedirection();
 
