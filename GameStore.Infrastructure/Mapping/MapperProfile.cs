@@ -18,9 +18,6 @@ public class MapperProfile : Profile
         CreateMap<CommentCreateModel, Comment>();
 
         CreateMap<Game, GameModel>();
-        CreateMap<GameCreateModel, Game>()
-            .ForMember(d => d.Genres,
-                opt => opt.MapFrom(src => src.GenreIds.Select(id => new Genre() {Id = id})))
-            .ForMember(d => d.PlatformTypes, opt => opt.MapFrom(src => src.PlatformIds.Select(id => new PlatformType() {Id = id})));
+        CreateMap<GameCreateModel, Game>();
     }
 }
