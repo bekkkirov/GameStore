@@ -12,9 +12,9 @@ public interface IGameService
 
     Task<IEnumerable<GameModel>> GetByPlatformTypeAsync(int platformId);
 
-    Task<GameModel> AddAsync(GameCreateModel game);
+    Task AddAsync(GameCreateModel game);
 
-    Task UpdateAsync(int gameId, GameCreateModel game);
+    Task UpdateAsync(string key, GameCreateModel game);
 
     Task DeleteAsync(int gameId);
 

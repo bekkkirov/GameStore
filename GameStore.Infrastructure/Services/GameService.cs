@@ -17,21 +17,27 @@ public class GameService : IGameService
         _mapper = mapper;
     }
 
-    public async Task<GameModel> AddAsync(GameCreateModel game)
+    public async Task AddAsync(GameCreateModel game)
     {
         var gameToAdd = _mapper.Map<Game>(game);
+        await AddGenresAndPlatforms(gameToAdd, game.GenreIds, game.PlatformIds);
 
         _unitOfWork.GameRepository.Add(gameToAdd);
         await _unitOfWork.SaveChangesAsync();
-
-        return _mapper.Map<GameModel>(gameToAdd);
     }
 
-    public async Task UpdateAsync(int gameId, GameCreateModel game)
+    public async Task UpdateAsync(string key, GameCreateModel game)
     {
-        var gameToUpdate = await _unitOfWork.GameRepository.GetByIdAsync(gameId);
+        var gameToUpdate = await _unitOfWork.GameRepository.GetByKeyAsync(key);
+
+        gameToUpdate.Genres.Clear();
+        gameToUpdate.PlatformTypes.Clear();
+
+        await AddGenresAndPlatforms(gameToUpdate, game.GenreIds, game.PlatformIds);
 
         _mapper.Map(game, gameToUpdate);
+
+        _unitOfWork.GameRepository.Update(gameToUpdate);
         await _unitOfWork.SaveChangesAsync();
     }
 
@@ -50,7 +56,7 @@ public class GameService : IGameService
 
     public async Task<IEnumerable<GameModel>> GetAllAsync()
     {
-        var games = await _unitOfWork.GameRepository.GetAsync();
+        var games = await _unitOfWork.GameRepository.GetWithPlatformsAndGenres();
 
         return _mapper.Map<IEnumerable<GameModel>>(games);
     }
@@ -79,5 +85,18 @@ public class GameService : IGameService
         }
 
         return memoryStream;
+    }
+
+    private async Task AddGenresAndPlatforms(Game game, List<int> genreIds, List<int> platformIds)
+    {
+        foreach (var id in genreIds)
+        {
+            game.Genres.Add(await _unitOfWork.GenreRepository.GetByIdAsync(id));
+        }
+
+        foreach (var id in platformIds)
+        {
+            game.PlatformTypes.Add(await _unitOfWork.PlatformTypeRepository.GetByIdAsync(id));
+        }
     }
 }
