@@ -51,7 +51,7 @@ public class GamesController : ControllerBase
     {
         await _gameService.UpdateAsync(gameKey, game);
 
-        return NoContent();
+        return Ok();
     }
 
     [HttpDelete]
