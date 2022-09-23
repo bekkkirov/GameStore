@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using GameStore.Application.Exceptions;
 using GameStore.Application.Interfaces;
 using GameStore.Application.Models;
 using GameStore.Application.Persistence;
@@ -52,6 +53,11 @@ public class GameService : IGameService
     public async Task<GameModel> GetByKeyAsync(string key)
     {
         var game = await _unitOfWork.GameRepository.GetByKeyAsync(key);
+
+        if (game is null)
+        {
+            throw new NotFoundException("Game with specified key not found.");
+        }
 
         return _mapper.Map<GameModel>(game);
     }

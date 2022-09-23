@@ -28,11 +28,6 @@ public class GamesController : ControllerBase
     {
         var game = await _gameService.GetByKeyAsync(key);
 
-        if (game is null)
-        {
-            return NotFound();
-        }
-
         return Ok(game);
     }
 

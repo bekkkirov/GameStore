@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Diagnostics;
+﻿using GameStore.Application.Exceptions;
+using Microsoft.AspNetCore.Diagnostics;
 
 namespace GameStore.API.Extensions;
 
@@ -17,6 +18,10 @@ public static class ExceptionHandlerExtensions
                 {
                     switch (exception)
                     {
+                        case NotFoundException:
+                            context.Response.StatusCode = StatusCodes.Status404NotFound;
+                            break;
+
                         default:
                             context.Response.StatusCode = StatusCodes.Status500InternalServerError;
                             break;
