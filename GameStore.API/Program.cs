@@ -11,6 +11,7 @@ namespace GameStore.API
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddControllers();
+            builder.Services.AddSwaggerGen();
             builder.Services.AddGameStoreContext(builder.Configuration);
             builder.Services.AddRepositories();
             builder.Services.AddAutoMapper();
@@ -18,6 +19,12 @@ namespace GameStore.API
             builder.Services.AddApplicationServices();
 
             var app = builder.Build();
+
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI();
+            }
 
             app.ConfigureExceptionHandler();
 
