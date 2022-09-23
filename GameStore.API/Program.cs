@@ -27,11 +27,7 @@ namespace GameStore.API
             }
 
             app.ConfigureExceptionHandler();
-
-            using (var scope = app.Services.CreateScope())
-            {
-                await DatabaseSeeder.SeedDatabase(scope.ServiceProvider.GetRequiredService<IUnitOfWork>());
-            }
+            await app.SeedDatabase();
 
             app.UseHttpsRedirection();
 
@@ -39,7 +35,7 @@ namespace GameStore.API
 
             app.MapControllers();
 
-            app.Run();
+            await app.RunAsync();
         }
     }
 }

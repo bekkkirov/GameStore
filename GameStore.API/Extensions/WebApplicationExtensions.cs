@@ -1,33 +1,17 @@
-﻿using Microsoft.AspNetCore.Diagnostics;
+﻿using GameStore.Application.Persistence;
+using GameStore.Infrastructure.Persistence;
+using GameStore.Infrastructure.Persistence.Seed;
 
 namespace GameStore.API.Extensions;
 
 public static class WebApplicationExtensions
 {
-    public static void ConfigureExceptionHandler(this WebApplication app)
+    public static async Task SeedDatabase(this WebApplication app)
     {
-        app.UseExceptionHandler(builder =>
+        using (var scope = app.Services.CreateScope())
         {
-            builder.Run(async context =>
-            {
-                context.Response.ContentType = "application/json";
-                var exception = context.Features.Get<IExceptionHandlerFeature>()?.Error;
-
-                if (exception is not null)
-                {
-                    switch (exception)
-                    {
-                        default:
-                            context.Response.StatusCode = StatusCodes.Status500InternalServerError;
-                            break;
-                    }
-
-                    await context.Response.WriteAsJsonAsync(new
-                    {
-                        Message = exception.Message
-                    });
-                }
-            });
-        });
+            await DatabaseSeeder.SeedDatabase(scope.ServiceProvider.GetRequiredService<GameStoreContext>(),
+                scope.ServiceProvider.GetRequiredService<IUnitOfWork>());
+        }
     }
 }

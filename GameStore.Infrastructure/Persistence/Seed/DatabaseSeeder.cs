@@ -1,13 +1,14 @@
 ﻿using GameStore.Application.Persistence;
 using GameStore.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace GameStore.Infrastructure.Persistence.Seed;
 
 public static class DatabaseSeeder
 {
-    public static async Task SeedDatabase(IUnitOfWork unitOfWork)
+    public static async Task SeedDatabase(GameStoreContext context, IUnitOfWork unitOfWork)
     {
-        if (!(await unitOfWork.GenreRepository.GetAsync()).Any())
+        if (await context.Genres.FirstOrDefaultAsync() is null)
         {
             var genres = new List<Genre>()
             {
@@ -102,11 +103,9 @@ public static class DatabaseSeeder
             {
                 unitOfWork.GenreRepository.Add(genre);
             }
-
-            await unitOfWork.SaveChangesAsync();
         }
 
-        if (!(await unitOfWork.PlatformTypeRepository.GetAsync()).Any())
+        if (await context.Platforms.FirstOrDefaultAsync() is null)
         {
             var platforms = new List<PlatformType>()
             {
@@ -136,11 +135,9 @@ public static class DatabaseSeeder
             {
                 unitOfWork.PlatformTypeRepository.Add(platform);
             }
-
-            await unitOfWork.SaveChangesAsync();
         }
 
-        if (!(await unitOfWork.UserRepository.GetAsync()).Any())
+        if (await context.Users.FirstOrDefaultAsync() is null)
         {
             var user = new User()
             {
@@ -150,7 +147,8 @@ public static class DatabaseSeeder
             };
 
             unitOfWork.UserRepository.Add(user);
-            await unitOfWork.SaveChangesAsync();
         }
+
+        await unitOfWork.SaveChangesAsync();
     }
 }
