@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using FluentValidation.AspNetCore;
+using GameStore.API.Options;
 using GameStore.Application.Interfaces;
 using GameStore.Application.Persistence;
 using GameStore.Application.Persistence.Repositories;
@@ -14,9 +15,9 @@ namespace GameStore.API.Extensions;
 
 public static class ServicesExtensions
 {
-    public static void AddGameStoreContext(this IServiceCollection services, IConfiguration config)
+    public static void AddGameStoreContext(this IServiceCollection services, DbConnectionOptions options)
     {
-        services.AddDbContext<GameStoreContext>(opt => opt.UseSqlServer(config.GetConnectionString("GameStore")));
+        services.AddDbContext<GameStoreContext>(opt => opt.UseSqlServer(options.GameStore));
     }
 
     public static void AddRepositories(this IServiceCollection services)

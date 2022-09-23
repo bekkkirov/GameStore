@@ -1,4 +1,5 @@
 using GameStore.API.Extensions;
+using GameStore.API.Options;
 using GameStore.Application.Persistence;
 using GameStore.Infrastructure.Persistence.Seed;
 
@@ -12,7 +13,7 @@ namespace GameStore.API
 
             builder.Services.AddControllers();
             builder.Services.AddSwaggerGen();
-            builder.Services.AddGameStoreContext(builder.Configuration);
+            builder.Services.AddGameStoreContext(builder.Configuration.GetSection("ConnectionStrings").Get<DbConnectionOptions>());
             builder.Services.AddRepositories();
             builder.Services.AddAutoMapper();
             builder.Services.AddFluentValidators();
