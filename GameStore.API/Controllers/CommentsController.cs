@@ -16,16 +16,16 @@ public class CommentsController : ControllerBase
     }
 
     [HttpPost("/api/game/{gamekey}/newComment")]
-    public async Task<ActionResult> AddComment(string gameKey, CommentCreateModel comment)
+    public async Task<ActionResult<CommentModel>> AddComment(string gameKey, CommentCreateModel comment)
     {
         //Later i'll extract username from JWT, but for now i left it hardcoded.
-        await _commentService.AddAsync("bekirov", gameKey, comment);
+        var created = await _commentService.AddAsync("bekirov", gameKey, comment);
 
-        return Ok();
+        return CreatedAtAction(nameof(GetByGameKey), new {GameKey = gameKey}, created);
     }
 
     [HttpGet("/api/game/{gamekey}/comments")]
-    public async Task<ActionResult<IEnumerable<CommentModel>>> GetCommentsByGameKey(string gameKey)
+    public async Task<ActionResult<IEnumerable<CommentModel>>> GetByGameKey(string gameKey)
     {
         var comments = await _commentService.GetByGameKeyAsync(gameKey);
 

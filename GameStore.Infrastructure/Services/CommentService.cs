@@ -24,7 +24,7 @@ public class CommentService : ICommentService
         return _mapper.Map<IEnumerable<CommentModel>>(comments);
     }
 
-    public async Task AddAsync(string userName, string gameKey, CommentCreateModel comment)
+    public async Task<CommentModel> AddAsync(string userName, string gameKey, CommentCreateModel comment)
     {
         var user = await _unitOfWork.UserRepository.GetByUserNameAsync(userName);
         var game = await _unitOfWork.GameRepository.GetByKeyAsync(gameKey);
@@ -35,5 +35,7 @@ public class CommentService : ICommentService
 
         _unitOfWork.CommentRepository.Add(commentToAdd);
         await _unitOfWork.SaveChangesAsync();
+
+        return _mapper.Map<CommentModel>(commentToAdd);
     }
 }
