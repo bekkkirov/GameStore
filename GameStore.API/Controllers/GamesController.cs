@@ -9,12 +9,10 @@ namespace GameStore.API.Controllers;
 public class GamesController : ControllerBase
 {
     private readonly IGameService _gameService;
-    private readonly ICommentService _commentService;
 
-    public GamesController(IGameService gameService, ICommentService commentService)
+    public GamesController(IGameService gameService)
     {
         _gameService = gameService;
-        _commentService = commentService;
     }
 
     [HttpGet]
@@ -63,23 +61,6 @@ public class GamesController : ControllerBase
         await _gameService.DeleteAsync(gameId);
 
         return NoContent();
-    }
-
-    [HttpPost("/api/game/{gamekey}/newComment")]
-    public async Task<ActionResult> AddComment(string gameKey, CommentCreateModel comment)
-    {
-        //Later i'll extract username from JWT, but for now i left it hardcoded.
-        await _commentService.AddAsync("bekirov", gameKey, comment);
-
-        return Ok();
-    }
-
-    [HttpGet("/api/game/{gamekey}/comments")]
-    public async Task<ActionResult<IEnumerable<CommentModel>>> GetCommentsByGameKey(string gameKey)
-    {
-        var comments = await _commentService.GetByGameKeyAsync(gameKey);
-
-        return Ok(comments);
     }
 
     [HttpGet("/api/game/{gamekey}/download")]
