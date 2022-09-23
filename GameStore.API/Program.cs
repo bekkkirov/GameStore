@@ -13,7 +13,7 @@ namespace GameStore.API
 
             builder.Services.AddControllers();
             builder.Services.AddSwaggerGen();
-            builder.Services.AddGameStoreContext(builder.Configuration.GetSection("ConnectionStrings").Get<DbConnectionOptions>());
+            builder.Services.AddGameStoreContext(builder.Configuration.GetSection(DbConnectionOptions.SectionName).Get<DbConnectionOptions>());
             builder.Services.AddRepositories();
             builder.Services.AddAutoMapper();
             builder.Services.AddFluentValidators();
