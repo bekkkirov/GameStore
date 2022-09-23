@@ -29,7 +29,7 @@ public class GameCreateValidator : AbstractValidator<GameCreateModel>
             .WithMessage("Description length can't exceed 500 characters.");
 
         RuleFor(g => g.Price)
-            .GreaterThan(0)
-            .WithMessage("Price must be greater than zero.");
+            .GreaterThanOrEqualTo(0)
+            .WithMessage("Price must be greater than or equal zero.");
     }
 }
