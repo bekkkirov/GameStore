@@ -17,13 +17,15 @@ public class GameService : IGameService
         _mapper = mapper;
     }
 
-    public async Task AddAsync(GameCreateModel game)
+    public async Task<GameModel> AddAsync(GameCreateModel game)
     {
         var gameToAdd = _mapper.Map<Game>(game);
         await AddGenresAndPlatforms(gameToAdd, game.GenreIds, game.PlatformIds);
 
         _unitOfWork.GameRepository.Add(gameToAdd);
         await _unitOfWork.SaveChangesAsync();
+
+        return _mapper.Map<GameModel>(gameToAdd);
     }
 
     public async Task UpdateAsync(string key, GameCreateModel game)

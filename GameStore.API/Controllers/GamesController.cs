@@ -40,9 +40,9 @@ public class GamesController : ControllerBase
     [Route("new")]
     public async Task<ActionResult<GameModel>> Add(GameCreateModel game)
     {
-        await _gameService.AddAsync(game);
+        var created = await _gameService.AddAsync(game);
 
-        return Ok();
+        return CreatedAtAction(nameof(GetByKey), new {Key = created.Key}, created);
     }
 
     [HttpPut]
