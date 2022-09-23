@@ -44,7 +44,7 @@ public abstract class BaseRepository<TEntity> : IRepository<TEntity> where TEnti
 
     public async Task DeleteByIdAsync(int id)
     {
-        var entityToDelete = await GetByIdAsync(id);
+        var entityToDelete = await _dbSet.FindAsync(id);
 
         _dbSet.Remove(entityToDelete);
     }
