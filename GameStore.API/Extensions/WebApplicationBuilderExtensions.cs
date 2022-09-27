@@ -1,4 +1,5 @@
-﻿using GameStore.API.Middleware;
+﻿using System.Diagnostics;
+using GameStore.API.Middleware;
 using Serilog;
 using Serilog.Events;
 using Serilog.Filters;
@@ -9,21 +10,9 @@ public static class WebApplicationBuilderExtensions
 {
     public static void AddSerilog(this WebApplicationBuilder builder)
     {
-        var logger = new LoggerConfiguration().MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Warning)
-                                              .WriteTo.Logger(l =>
-                                              {
-                                                  l.WriteTo.Console();
-                                                  l.Filter.ByExcluding(Matching.FromSource<RequestMiddleware>());
-                                              })
-                                              .WriteTo.Logger(l =>
-                                              {
-                                                  l.WriteTo.File("logs/requests.txt");
-                                                  l.Filter.ByIncludingOnly(Matching.FromSource<RequestMiddleware>());
-                                              })
-                                              .CreateLogger();
+        var logger = new LoggerConfiguration().ReadFrom.Configuration(builder.Configuration).CreateLogger();
 
         builder.Logging.ClearProviders();
         builder.Logging.AddSerilog(logger);
-
     }
 }
