@@ -85,14 +85,20 @@ public class GameService : IGameService
 
     private async Task AddGenresAndPlatforms(Game game, List<int> genreIds, List<int> platformIds)
     {
-        foreach (var id in genreIds)
+        if (genreIds != null)
         {
-            game.Genres.Add(await _unitOfWork.GenreRepository.GetByIdAsync(id));
+            foreach (var id in genreIds)
+            {
+                game.Genres.Add(await _unitOfWork.GenreRepository.GetByIdAsync(id));
+            }
         }
 
-        foreach (var id in platformIds)
+        if (platformIds != null)
         {
-            game.PlatformTypes.Add(await _unitOfWork.PlatformTypeRepository.GetByIdAsync(id));
+            foreach (var id in platformIds)
+            {
+                game.PlatformTypes.Add(await _unitOfWork.PlatformTypeRepository.GetByIdAsync(id));
+            }
         }
     }
 }
