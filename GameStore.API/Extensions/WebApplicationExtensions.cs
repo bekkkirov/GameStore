@@ -1,4 +1,5 @@
-﻿using GameStore.Application.Persistence;
+﻿using GameStore.API.Middleware;
+using GameStore.Application.Persistence;
 using GameStore.Infrastructure.Persistence;
 using GameStore.Infrastructure.Persistence.Seed;
 
@@ -13,5 +14,15 @@ public static class WebApplicationExtensions
             await DatabaseSeeder.SeedDatabase(scope.ServiceProvider.GetRequiredService<GameStoreContext>(),
                 scope.ServiceProvider.GetRequiredService<IUnitOfWork>());
         }
+    }
+
+    public static void UseRequestMiddleware(this WebApplication app)
+    {
+        app.UseMiddleware<RequestMiddleware>();
+    }
+
+    public static void UsePerformanceTrackingMiddleware(this WebApplication app)
+    {
+        app.UseMiddleware<PerformanceTrackingMiddleware>();
     }
 }
