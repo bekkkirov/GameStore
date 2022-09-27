@@ -24,7 +24,10 @@
   <ItemGroup>
     <Folder Include="Controllers\" />
     <Folder Include="Comparers\" />
-    <Folder Include="Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GameStore.API\GameStore.API.csproj" />
   </ItemGroup>
 
 </Project>
