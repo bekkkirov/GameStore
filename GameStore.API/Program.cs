@@ -29,6 +29,8 @@ namespace GameStore.API
                 app.UseSwaggerUI();
             }
 
+            app.UseRequestMiddleware();
+
             app.ConfigureExceptionHandler();
             await app.SeedDatabase();
 
@@ -37,6 +39,8 @@ namespace GameStore.API
             app.UseAuthorization();
 
             app.MapControllers();
+
+            app.UsePerformanceTrackingMiddleware();
 
             await app.RunAsync();
         }
