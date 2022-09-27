@@ -19,6 +19,8 @@ namespace GameStore.API
             builder.Services.AddFluentValidators();
             builder.Services.AddApplicationServices();
 
+            builder.AddSerilog();
+
             var app = builder.Build();
 
             if (app.Environment.IsDevelopment())
