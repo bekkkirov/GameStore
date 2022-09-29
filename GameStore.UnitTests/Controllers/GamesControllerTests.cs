@@ -19,14 +19,14 @@ public class GamesControllerTests
     private readonly Fixture _fixture;
 
     private readonly Mock<IGameService> _gameServiceMock;
-    private readonly GamesController _gamesController;
+    private readonly GamesController _sut;
 
     public GamesControllerTests()
     {
         _fixture = new Fixture();
         _gameServiceMock = new Mock<IGameService>();
 
-        _gamesController = new GamesController(_gameServiceMock.Object);
+        _sut = new GamesController(_gameServiceMock.Object);
     }
 
     [Fact]
@@ -39,7 +39,7 @@ public class GamesControllerTests
                         .ReturnsAsync(games);
 
         // Act
-        var result = await _gamesController.Get();
+        var result = await _sut.Get();
         var objectResult = result.Result as ObjectResult;
         var actualGames = objectResult?.Value as IEnumerable<GameModel>;
 
@@ -60,7 +60,7 @@ public class GamesControllerTests
                         .ReturnsAsync(game);
 
         // Act
-        var result = await _gamesController.GetByKey(gameKey);
+        var result = await _sut.GetByKey(gameKey);
         var objectResult = result.Result as ObjectResult;
         var actualGame = objectResult?.Value as GameModel;
 
@@ -78,7 +78,7 @@ public class GamesControllerTests
         _gameServiceMock.Setup(x => x.DeleteAsync(It.IsAny<int>()));
 
         // Act
-        var result = await _gamesController.Delete(gameId);
+        var result = await _sut.Delete(gameId);
         var objectResult = result as NoContentResult;
 
         // Assert
@@ -95,7 +95,7 @@ public class GamesControllerTests
         var expected = new GameModel() { Key = createData.Key };
 
         // Act
-        var result = await _gamesController.Add(createData);
+        var result = await _sut.Add(createData);
         var objectResult = result.Result as ObjectResult;
 
         // Assert
@@ -110,7 +110,7 @@ public class GamesControllerTests
         _gameServiceMock.Setup(x => x.UpdateAsync(It.IsAny<string>(), It.IsAny<GameCreateModel>()));
 
         // Act
-        var result = await _gamesController.Update(key, updateData);
+        var result = await _sut.Update(key, updateData);
         var objectResult = result as OkResult;
 
         // Assert
