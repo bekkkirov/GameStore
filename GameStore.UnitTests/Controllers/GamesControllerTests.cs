@@ -90,16 +90,13 @@ public class GamesControllerTests
     {
         // Arrange
         _gameServiceMock.Setup(x => x.AddAsync(It.IsAny<GameCreateModel>()))
-                        .ReturnsAsync(new GameModel() { Key = createData.Key });
-
-        var expected = new GameModel() { Key = createData.Key };
+                        .ReturnsAsync(_fixture.Create<GameModel>());
 
         // Act
         var result = await _sut.Add(createData);
         var objectResult = result.Result as ObjectResult;
 
         // Assert
-        result.Should().BeEquivalentTo(expected);
         objectResult?.StatusCode.Should().Be(StatusCodes.Status201Created);
     }
 
