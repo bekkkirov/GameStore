@@ -10,9 +10,9 @@ public static class WebApplicationBuilderExtensions
 {
     public static void AddSerilog(this WebApplicationBuilder builder)
     {
-        var logger = new LoggerConfiguration().ReadFrom.Configuration(builder.Configuration).CreateLogger();
-
-        builder.Logging.ClearProviders();
-        builder.Logging.AddSerilog(logger);
+        builder.Host.UseSerilog((context, services, configuration) => 
+            configuration.ReadFrom.Configuration(context.Configuration)
+                         .ReadFrom.Services(services)
+                         .Enrich.FromLogContext());
     }
 }
