@@ -11,7 +11,7 @@ public class GameCreateModel
     public decimal Price { get; set; }
 
 
-    public List<int> GenreIds { get; set; }
+    public List<int> GenreIds { get; set; } = new List<int>();
 
-    public List<int> PlatformIds { get; set; }
+    public List<int> PlatformIds { get; set; } = new List<int>();
 }
