@@ -19,6 +19,8 @@ namespace GameStore.API
             builder.Services.AddFluentValidators();
             builder.Services.AddApplicationServices();
 
+            builder.AddSerilog();
+
             var app = builder.Build();
 
             if (app.Environment.IsDevelopment())
@@ -26,6 +28,8 @@ namespace GameStore.API
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            app.UseRequestMiddleware();
 
             app.ConfigureExceptionHandler();
             await app.SeedDatabase();
@@ -35,6 +39,8 @@ namespace GameStore.API
             app.UseAuthorization();
 
             app.MapControllers();
+
+            app.UsePerformanceTrackingMiddleware();
 
             await app.RunAsync();
         }

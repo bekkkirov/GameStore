@@ -87,12 +87,14 @@ public class GameService : IGameService
     {
         foreach (var id in genreIds)
         {
-            game.Genres.Add(await _unitOfWork.GenreRepository.GetByIdAsync(id));
+            var genre = await _unitOfWork.GenreRepository.GetByIdAsync(id);
+            game.Genres.Add(genre);
         }
 
         foreach (var id in platformIds)
         {
-            game.PlatformTypes.Add(await _unitOfWork.PlatformTypeRepository.GetByIdAsync(id));
+            var platform = await _unitOfWork.PlatformTypeRepository.GetByIdAsync(id);
+            game.PlatformTypes.Add(platform);
         }
     }
 }
