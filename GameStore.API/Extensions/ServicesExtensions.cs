@@ -27,6 +27,7 @@ public static class ServicesExtensions
         services.AddScoped<IPlatformTypeRepository, PlatformTypeRepository>();
         services.AddScoped<ICommentRepository, CommentRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IImageRepository, ImageRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
     }
 
