@@ -35,6 +35,7 @@ public static class ServicesExtensions
     {
         services.AddScoped<ICommentService, CommentService>();
         services.AddScoped<IGameService, GameService>();
+        services.AddScoped<IImageService, ImageService>();
     }
 
     public static void AddFluentValidators(this IServiceCollection services)
