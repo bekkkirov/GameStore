@@ -14,5 +14,7 @@ public interface IUnitOfWork
 
     public IPlatformTypeRepository PlatformTypeRepository { get; }
 
+    public IImageRepository ImageRepository { get; }
+
     Task SaveChangesAsync();
 }
