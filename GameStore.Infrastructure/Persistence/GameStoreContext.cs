@@ -16,6 +16,8 @@ public class GameStoreContext : DbContext
 
     public DbSet<Comment> Comments { get; set; }
 
+    public DbSet<Image> Images { get; set; }
+
     public GameStoreContext(DbContextOptions<GameStoreContext> options) : base(options)
     {
 
