@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using FluentValidation.AspNetCore;
-using GameStore.API.Options;
 using GameStore.Application.Interfaces;
+using GameStore.Application.Options;
 using GameStore.Application.Persistence;
 using GameStore.Application.Persistence.Repositories;
 using GameStore.Application.Validation;

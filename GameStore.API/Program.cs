@@ -1,5 +1,5 @@
 using GameStore.API.Extensions;
-using GameStore.API.Options;
+using GameStore.Application.Options;
 using GameStore.Application.Persistence;
 using GameStore.Infrastructure.Persistence.Seed;
 
