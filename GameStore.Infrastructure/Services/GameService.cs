@@ -4,6 +4,7 @@ using GameStore.Application.Interfaces;
 using GameStore.Application.Models;
 using GameStore.Application.Persistence;
 using GameStore.Domain.Entities;
+using Microsoft.AspNetCore.Http;
 
 namespace GameStore.Infrastructure.Services;
 
@@ -11,11 +12,13 @@ public class GameService : IGameService
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
+    private readonly IImageService _imageService;
 
-    public GameService(IUnitOfWork unitOfWork, IMapper mapper)
+    public GameService(IUnitOfWork unitOfWork, IMapper mapper, IImageService imageService)
     {
         _unitOfWork = unitOfWork;
         _mapper = mapper;
+        _imageService = imageService;
     }
 
     public async Task<GameModel> AddAsync(GameCreateModel game)
@@ -27,6 +30,24 @@ public class GameService : IGameService
         await _unitOfWork.SaveChangesAsync();
 
         return _mapper.Map<GameModel>(gameToAdd);
+    }
+
+    public async Task<ImageModel> SetImageAsync(string key, IFormFile file)
+    {
+        var game = await _unitOfWork.GameRepository.GetByKeyAsync(key);
+        var image = await _imageService.AddAsync(file);
+
+        if (game.Image is not null)
+        {
+            await _imageService.DeleteAsync(game.Image.PublicId);
+        }
+
+        image.GameId = game.Id;
+
+        _unitOfWork.ImageRepository.Update(image);
+        await _unitOfWork.SaveChangesAsync();
+
+        return _mapper.Map<ImageModel>(image);
     }
 
     public async Task UpdateAsync(string key, GameCreateModel game)

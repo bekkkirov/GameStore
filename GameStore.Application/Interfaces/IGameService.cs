@@ -1,4 +1,5 @@
 ﻿using GameStore.Application.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace GameStore.Application.Interfaces;
 
@@ -15,6 +16,8 @@ public interface IGameService
     Task<GameModel> AddAsync(GameCreateModel game);
 
     Task UpdateAsync(string key, GameCreateModel game);
+
+    Task<ImageModel> SetImageAsync(string key, IFormFile file);
 
     Task DeleteAsync(int gameId);
 }
