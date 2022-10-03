@@ -12,6 +12,8 @@ public class GameModel
 
     public decimal Price { get; set; }
 
+    public ImageModel Image { get; set; }
+
     public List<GenreModel> Genres { get; set; }
 
     public List<PlatformTypeModel> PlatformTypes { get; set; }
