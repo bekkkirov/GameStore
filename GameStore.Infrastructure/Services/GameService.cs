@@ -104,6 +104,13 @@ public class GameService : IGameService
         return _mapper.Map<IEnumerable<GameModel>>(games);
     }
 
+    public async Task<IEnumerable<GameModel>> GetByNameAsync(string pattern)
+    {
+        var games = await _unitOfWork.GameRepository.GetByNameAsync(pattern);
+
+        return _mapper.Map<IEnumerable<GameModel>>(games);
+    }
+
     private async Task AddGenresAndPlatforms(Game game, List<int> genreIds, List<int> platformIds)
     {
         foreach (var id in genreIds)

@@ -31,6 +31,15 @@ public class GamesController : ControllerBase
         return Ok(game);
     }
 
+    [HttpGet]
+    [Route("name/{pattern}")]
+    public async Task<ActionResult<GameModel>> GetByName(string pattern)
+    {
+        var games = await _gameService.GetByNameAsync(pattern);
+
+        return Ok(games);
+    }
+
     [HttpPost]
     [Route("new")]
     public async Task<ActionResult<GameModel>> Add(GameCreateModel game)
