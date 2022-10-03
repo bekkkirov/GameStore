@@ -49,6 +49,15 @@ public class GamesController : ControllerBase
         return Ok();
     }
 
+    [HttpPost]
+    [Route("image/{gameKey}")]
+    public async Task<ActionResult<ImageModel>> SetImage(string gameKey, IFormFile image)
+    {
+        var created = await _gameService.SetImageAsync(gameKey, image);
+
+        return CreatedAtAction(nameof(GetByKey), new {Key = gameKey}, created);
+    }
+
     [HttpDelete]
     [Route("remove/{gameId}")]
     public async Task<ActionResult> Delete(int gameId)

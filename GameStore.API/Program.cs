@@ -21,6 +21,8 @@ namespace GameStore.API
 
             builder.AddSerilog();
 
+            builder.Services.Configure<CloudinaryOptions>(builder.Configuration.GetSection("Cloudinary"));
+
             var app = builder.Build();
 
             if (app.Environment.IsDevelopment())
