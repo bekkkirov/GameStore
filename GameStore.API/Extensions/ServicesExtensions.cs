@@ -48,4 +48,9 @@ public static class ServicesExtensions
     {
         services.AddAutoMapper(typeof(MapperProfile).Assembly);
     }
+
+    public static void AddApplicationOptions(this IServiceCollection services, IConfiguration config)
+    {
+        services.Configure<CloudinaryOptions>(config.GetSection(CloudinaryOptions.SectionName));
+    }
 }

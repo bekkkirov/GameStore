@@ -17,11 +17,10 @@ namespace GameStore.API
             builder.Services.AddRepositories();
             builder.Services.AddAutoMapper();
             builder.Services.AddFluentValidators();
+            builder.Services.AddApplicationOptions(builder.Configuration);
             builder.Services.AddApplicationServices();
 
             builder.AddSerilog();
-
-            builder.Services.Configure<CloudinaryOptions>(builder.Configuration.GetSection("Cloudinary"));
 
             var app = builder.Build();
 
