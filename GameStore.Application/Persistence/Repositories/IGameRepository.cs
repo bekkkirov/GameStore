@@ -12,5 +12,5 @@ public interface IGameRepository : IRepository<Game>
 
     Task<IEnumerable<Game>> GetByPlatformAsync(int platformId);
 
-    Task<IEnumerable<Game>> GetByNameAsync(string pattern);
+    Task<IEnumerable<Game>> SearchAsync(string pattern);
 }

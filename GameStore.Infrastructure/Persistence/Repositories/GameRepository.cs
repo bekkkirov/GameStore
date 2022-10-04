@@ -44,9 +44,10 @@ public class GameRepository : BaseRepository<Game>, IGameRepository
                            .ToListAsync();
     }
 
-    public async Task<IEnumerable<Game>> GetByNameAsync(string pattern)
+    public async Task<IEnumerable<Game>> SearchAsync(string pattern)
     {
-        return await _dbSet.Where(g => EF.Functions.Like(g.Name, $"%{pattern}%"))
+        
+        return await _dbSet.Where(g => g.Name.Contains(pattern))
                            .ToListAsync();
     }
 }

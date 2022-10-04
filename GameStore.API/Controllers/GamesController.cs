@@ -32,10 +32,10 @@ public class GamesController : ControllerBase
     }
 
     [HttpGet]
-    [Route("name/{pattern}")]
-    public async Task<ActionResult<GameModel>> GetByName(string pattern)
+    [Route("search/{pattern}")]
+    public async Task<ActionResult<GameModel>> Search(string pattern)
     {
-        var games = await _gameService.GetByNameAsync(pattern);
+        var games = await _gameService.SearchAsync(pattern);
 
         return Ok(games);
     }

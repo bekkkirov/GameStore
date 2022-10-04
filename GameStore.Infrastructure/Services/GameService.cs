@@ -104,9 +104,9 @@ public class GameService : IGameService
         return _mapper.Map<IEnumerable<GameModel>>(games);
     }
 
-    public async Task<IEnumerable<GameModel>> GetByNameAsync(string pattern)
+    public async Task<IEnumerable<GameModel>> SearchAsync(string pattern)
     {
-        var games = await _unitOfWork.GameRepository.GetByNameAsync(pattern);
+        var games = await _unitOfWork.GameRepository.SearchAsync(pattern);
 
         return _mapper.Map<IEnumerable<GameModel>>(games);
     }
