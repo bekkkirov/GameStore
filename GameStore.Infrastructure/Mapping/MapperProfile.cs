@@ -19,5 +19,7 @@ public class MapperProfile : Profile
 
         CreateMap<Game, GameModel>();
         CreateMap<GameCreateModel, Game>();
+
+        CreateMap<Image, ImageModel>();
     }
 }

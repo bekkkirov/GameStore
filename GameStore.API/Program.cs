@@ -1,5 +1,5 @@
 using GameStore.API.Extensions;
-using GameStore.API.Options;
+using GameStore.Application.Options;
 using GameStore.Application.Persistence;
 using GameStore.Infrastructure.Persistence.Seed;
 
@@ -17,6 +17,7 @@ namespace GameStore.API
             builder.Services.AddRepositories();
             builder.Services.AddAutoMapper();
             builder.Services.AddFluentValidators();
+            builder.Services.AddApplicationOptions(builder.Configuration);
             builder.Services.AddApplicationServices();
 
             builder.AddSerilog();

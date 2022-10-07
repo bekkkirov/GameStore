@@ -31,6 +31,15 @@ public class GamesController : ControllerBase
         return Ok(game);
     }
 
+    [HttpGet]
+    [Route("search/{pattern}")]
+    public async Task<ActionResult<GameModel>> Search(string pattern)
+    {
+        var games = await _gameService.SearchAsync(pattern);
+
+        return Ok(games);
+    }
+
     [HttpPost]
     [Route("new")]
     public async Task<ActionResult<GameModel>> Add(GameCreateModel game)
@@ -47,6 +56,15 @@ public class GamesController : ControllerBase
         await _gameService.UpdateAsync(gameKey, game);
 
         return Ok();
+    }
+
+    [HttpPost]
+    [Route("image/{gameKey}")]
+    public async Task<ActionResult<ImageModel>> SetImage(string gameKey, IFormFile image)
+    {
+        var created = await _gameService.SetImageAsync(gameKey, image);
+
+        return CreatedAtAction(nameof(GetByKey), new {Key = gameKey}, created);
     }
 
     [HttpDelete]

@@ -12,6 +12,8 @@ public class Game : BaseEntity
 
     public decimal Price { get; set; }
 
+    public Image Image { get; set; }
+
     public List<Comment> Comments { get; set; } = new List<Comment>();
 
     public List<Genre> Genres { get; set; } = new List<Genre>();

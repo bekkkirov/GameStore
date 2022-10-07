@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using FluentValidation.AspNetCore;
-using GameStore.API.Options;
 using GameStore.Application.Interfaces;
+using GameStore.Application.Options;
 using GameStore.Application.Persistence;
 using GameStore.Application.Persistence.Repositories;
 using GameStore.Application.Validation;
@@ -27,6 +27,7 @@ public static class ServicesExtensions
         services.AddScoped<IPlatformTypeRepository, PlatformTypeRepository>();
         services.AddScoped<ICommentRepository, CommentRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IImageRepository, ImageRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
     }
 
@@ -34,6 +35,7 @@ public static class ServicesExtensions
     {
         services.AddScoped<ICommentService, CommentService>();
         services.AddScoped<IGameService, GameService>();
+        services.AddScoped<IImageService, ImageService>();
     }
 
     public static void AddFluentValidators(this IServiceCollection services)
@@ -45,5 +47,10 @@ public static class ServicesExtensions
     public static void AddAutoMapper(this IServiceCollection services)
     {
         services.AddAutoMapper(typeof(MapperProfile).Assembly);
+    }
+
+    public static void AddApplicationOptions(this IServiceCollection services, IConfiguration config)
+    {
+        services.Configure<CloudinaryOptions>(config.GetSection(CloudinaryOptions.SectionName));
     }
 }

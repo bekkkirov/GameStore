@@ -1,4 +1,4 @@
-﻿namespace GameStore.API.Options;
+﻿namespace GameStore.Application.Options;
 
 public class DbConnectionOptions
 {

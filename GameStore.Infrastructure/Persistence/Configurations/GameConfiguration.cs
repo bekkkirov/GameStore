@@ -23,6 +23,10 @@ public class GameConfiguration : IEntityTypeConfiguration<Game>
                .HasMaxLength(500)
                .IsRequired();
 
+        builder.HasOne(g => g.Image)
+               .WithOne(i => i.Game)
+               .HasForeignKey<Image>(i => i.GameId);
+
         builder.HasMany(g => g.Genres)
                .WithMany(g => g.Games);
 

@@ -4,6 +4,7 @@ using GameStore.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GameStore.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(GameStoreContext))]
-    partial class GameStoreContextModelSnapshot : ModelSnapshot
+    [Migration("20221002075029_ImageEntity")]
+    partial class ImageEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -157,14 +159,10 @@ namespace GameStore.Infrastructure.Persistence.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("PublicId")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Url")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -172,10 +170,7 @@ namespace GameStore.Infrastructure.Persistence.Migrations
                         .IsUnique()
                         .HasFilter("[GameId] IS NOT NULL");
 
-                    b.HasIndex("PublicId")
-                        .IsUnique();
-
-                    b.ToTable("Images");
+                    b.ToTable("Image");
                 });
 
             modelBuilder.Entity("GameStore.Domain.Entities.PlatformType", b =>
