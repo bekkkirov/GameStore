@@ -19,6 +19,8 @@ namespace GameStore.API
             builder.Services.AddFluentValidators();
             builder.Services.AddApplicationOptions(builder.Configuration);
             builder.Services.AddApplicationServices();
+            builder.Services.AddJwt(builder.Configuration.GetSection(JwtOptions.SectionName).Get<JwtOptions>());
+            builder.Services.AddIdentity();
 
             builder.AddSerilog();
 
@@ -37,6 +39,7 @@ namespace GameStore.API
 
             app.UseHttpsRedirection();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllers();
