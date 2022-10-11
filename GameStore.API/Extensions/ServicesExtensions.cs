@@ -44,6 +44,8 @@ public static class ServicesExtensions
         services.AddScoped<ICommentService, CommentService>();
         services.AddScoped<IGameService, GameService>();
         services.AddScoped<IImageService, ImageService>();
+        services.AddScoped<ITokenService, TokenService>();
+        services.AddScoped<IAuthenticationService, AuthenticationService>();
     }
 
     public static void AddFluentValidators(this IServiceCollection services)
@@ -60,6 +62,7 @@ public static class ServicesExtensions
     public static void AddApplicationOptions(this IServiceCollection services, IConfiguration config)
     {
         services.Configure<CloudinaryOptions>(config.GetSection(CloudinaryOptions.SectionName));
+        services.Configure<JwtOptions>(config.GetSection(JwtOptions.SectionName));
     }
 
     public static void AddJwt(this IServiceCollection services, JwtOptions options)
