@@ -22,5 +22,9 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.Property(u => u.LastName)
                .HasMaxLength(30)
                .IsRequired();
+
+        builder.HasOne(u => u.ProfileImage)
+               .WithOne(i => i.User)
+               .HasForeignKey<Image>(i => i.UserId);
     }
 }
