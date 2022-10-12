@@ -12,6 +12,7 @@ public class UserRepository : BaseRepository<User>, IUserRepository
 
     public async Task<User> GetByUserNameAsync(string userName)
     {
-        return await _dbSet.FirstOrDefaultAsync(u => u.UserName == userName);
+        return await _dbSet.Include(u => u.ProfileImage)
+                           .FirstOrDefaultAsync(u => u.UserName == userName);
     }
 }
