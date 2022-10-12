@@ -44,6 +44,7 @@ public static class ServicesExtensions
         services.AddTransient<ICommentService, CommentService>();
         services.AddTransient<IGameService, GameService>();
         services.AddTransient<IImageService, ImageService>();
+        services.AddTransient<IUserService, UserService>();
         services.AddTransient<ITokenService, TokenService>();
         services.AddTransient<IAuthenticationService, AuthenticationService>();
     }
