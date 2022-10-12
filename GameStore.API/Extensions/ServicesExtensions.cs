@@ -41,11 +41,11 @@ public static class ServicesExtensions
 
     public static void AddApplicationServices(this IServiceCollection services)
     {
-        services.AddScoped<ICommentService, CommentService>();
-        services.AddScoped<IGameService, GameService>();
-        services.AddScoped<IImageService, ImageService>();
-        services.AddScoped<ITokenService, TokenService>();
-        services.AddScoped<IAuthenticationService, AuthenticationService>();
+        services.AddTransient<ICommentService, CommentService>();
+        services.AddTransient<IGameService, GameService>();
+        services.AddTransient<IImageService, ImageService>();
+        services.AddTransient<ITokenService, TokenService>();
+        services.AddTransient<IAuthenticationService, AuthenticationService>();
     }
 
     public static void AddFluentValidators(this IServiceCollection services)

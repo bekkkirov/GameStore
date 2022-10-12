@@ -18,12 +18,12 @@ public class TokenService : ITokenService
         _tokenOptions = tokenOptions;
     }
 
-    public string GenerateAccessToken(UserClaimsModel claimsModel)
+    public string GenerateAccessToken(string userName, string email)
     {
         var claims = new List<Claim>()
         {
-            new Claim(ClaimTypes.Name, claimsModel.UserName),
-            new Claim(ClaimTypes.Email, claimsModel.Email)
+            new Claim(ClaimTypes.Name, userName),
+            new Claim(ClaimTypes.Email, email)
         };
 
         var bytes = Encoding.UTF8.GetBytes(_tokenOptions.Value.Key);
@@ -34,7 +34,7 @@ public class TokenService : ITokenService
         var tokenDescriptor = new SecurityTokenDescriptor()
         {
             Subject = new ClaimsIdentity(claims),
-            Expires = DateTime.Now.AddDays(14),
+            Expires = DateTime.Now.AddDays(_tokenOptions.Value.ExpiresInDays),
             SigningCredentials = credentials,
             Issuer = _tokenOptions.Value.Issuer,
             Audience = _tokenOptions.Value.Audience

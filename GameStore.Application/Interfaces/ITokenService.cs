@@ -5,5 +5,5 @@ namespace GameStore.Application.Interfaces;
 
 public interface ITokenService
 {
-    string GenerateAccessToken(UserClaimsModel claimsModel);
+    string GenerateAccessToken(string userName, string email);
 }

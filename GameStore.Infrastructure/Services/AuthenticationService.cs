@@ -46,9 +46,7 @@ public class AuthenticationService : IAuthenticationService
             throw new IdentityException("Invalid password.");
         }
 
-        var claims = new UserClaimsModel() {UserName = user.UserName, Email = user.Email};
-
-        return _tokenService.GenerateAccessToken(claims);
+        return _tokenService.GenerateAccessToken(user.UserName, user.Email);
     }
 
     public async Task<string> SignUpAsync(SignUpModel signUpData)
@@ -59,7 +57,7 @@ public class AuthenticationService : IAuthenticationService
 
         if (!result.Succeeded)
         {
-            throw new IdentityException(result.Errors.First().Description);
+            throw new IdentityException(result.Errors.FirstOrDefault()?.Description);
         }
 
         var userToAdd = _mapper.Map<User>(signUpData);
@@ -67,8 +65,6 @@ public class AuthenticationService : IAuthenticationService
         _unitOfWork.UserRepository.Add(userToAdd);
         await _unitOfWork.SaveChangesAsync();
 
-        var claims = new UserClaimsModel() { UserName = identityToAdd.UserName, Email = identityToAdd.Email };
-
-        return _tokenService.GenerateAccessToken(claims);
+        return _tokenService.GenerateAccessToken(identityToAdd.UserName, identityToAdd.Email);
     }
 }
