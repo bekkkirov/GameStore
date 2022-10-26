@@ -21,5 +21,8 @@ public class MapperProfile : Profile
         CreateMap<GameCreateModel, Game>();
 
         CreateMap<Image, ImageModel>();
+
+        CreateMap<SignUpModel, User>();
+        CreateMap<User, UserModel>();
     }
 }

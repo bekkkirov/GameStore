@@ -10,5 +10,7 @@ public class User : BaseEntity
 
     public string LastName { get; set; }
 
+    public Image ProfileImage { get; set; }
+
     public List<Comment> Comments { get; set; } = new List<Comment>();
 }
