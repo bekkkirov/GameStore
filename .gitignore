@@ -406,6 +406,6 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
-/GameStore.API/Client/.vscode
-/GameStore.API/Client/.angular/cache/13.3.9
-/GameStore.API/Client/src/assets/.gitkeep
+/GameStore.Client/.vscode
+/GameStore.Client/src/assets/.gitkeep
+/GameStore.Client/.angular/cache/13.3.9
