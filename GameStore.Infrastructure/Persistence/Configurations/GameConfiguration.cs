@@ -25,7 +25,8 @@ public class GameConfiguration : IEntityTypeConfiguration<Game>
 
         builder.HasOne(g => g.Image)
                .WithOne(i => i.Game)
-               .HasForeignKey<Image>(i => i.GameId);
+               .HasForeignKey<Image>(i => i.GameId)
+               .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasMany(g => g.Genres)
                .WithMany(g => g.Games);
