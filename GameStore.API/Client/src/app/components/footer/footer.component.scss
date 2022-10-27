@@ -1,0 +1,31 @@
+.footer {
+  color: #fff;
+
+  &__inner {
+    padding: 20px 0;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__logo {
+    display: flex;
+    align-items: center;
+  }
+
+  &__copyright {
+    font-weight: 100;
+  }
+}
+
+.logo {
+  &__image {
+    width: 32px;
+    height: 32px;
+    margin-right: 10px;
+  }
+
+  &__title {
+    font-size: 18px;
+    font-weight: bold;
+  }
+}

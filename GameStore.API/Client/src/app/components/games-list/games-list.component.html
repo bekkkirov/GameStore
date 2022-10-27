@@ -1,0 +1,40 @@
+<div class="games">
+    <div class="container">
+        <div class="games__inner">
+            <a class="games__add" routerLink="games/add">Add new game</a>
+            <app-search></app-search>
+            <div class="games__list">
+                <div class="games__game" *ngFor="let game of games">
+                    <div class="game__image"
+                         [routerLink]="'games/' + game.key"
+                         [style.background-image]="'url(' + game.image?.url + ')'" ></div>
+                    <div class="game__pop-up">
+                        <div class="game__purchase">
+                            <span class="game__price">${{game.price | number: '1.2-2'}}</span>
+                            <button class="game__buy">BUY</button>
+                        </div>
+                        <div class="game__info">
+                            <span class="game__genre" *ngFor="let genre of game.genres"> {{genre.name}}</span>
+                            <p class="game__name">{{game.name}}</p>
+                        </div>
+                    </div>
+                    <button class="game__more"
+                            mat-icon-button
+                            [matMenuTriggerFor]="menu">
+                        <mat-icon>more_vert</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="openEditDialog(game)">
+                            <mat-icon class="more__edit-icon">edit</mat-icon>
+                            <span class="more__edit">Edit</span>
+                        </button>
+                        <button mat-menu-item (click)="deleteGame(game.id)">
+                            <mat-icon class="more__delete-icon">delete</mat-icon>
+                            <span class="more__delete">Delete</span>
+                        </button>
+                    </mat-menu>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,37 @@
+.search {
+  color: #fff;
+
+  &__form {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  mat-error {
+    font-size: 14px;
+  }
+}
+
+.form {
+  &__control {
+    font-size: 16px;
+  }
+
+  &__name-control {
+    width: 50%;
+  }
+
+  &__name-input {
+      width: 100%;
+  }
+
+  &__button {
+    width: 150px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #7b1fa2;
+    color: #fff;
+    margin: 10px 0 0 0;
+  }
+}

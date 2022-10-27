@@ -1,0 +1,122 @@
+.games {
+  &__inner {
+    background-color: #232323;
+    padding: 20px 40px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 25px;
+  }
+
+  &__add {
+    background-color: #fff;
+    padding: 10px 15px;
+    align-self: flex-start;
+    margin-bottom: 20px;
+    border-radius: 5px;
+  }
+
+  &__game {
+    position: relative;
+
+    &:hover {
+      .game__more {
+        display: block;
+      }
+    }
+  }
+
+  app-search {
+    margin: 0 0 20px 0;
+  }
+}
+
+.game {
+  &__image {
+    cursor: pointer;
+    padding-top: 60%;
+    background-position: center;
+    background-size: cover;
+  }
+
+  &__pop-up {
+    width: 100%;
+    padding: 20px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    color: #fff;
+
+    background: rgba(0, 0, 0, 0.25);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(3px);
+  }
+
+  &__purchase {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+  }
+
+  &__price {
+    font-size: 30px;
+    font-weight: 100;
+  }
+
+  &__buy {
+    border: none;
+    padding: 7px 15px;
+    width: 75px;
+    background-color: #00b700;
+    color: #ffffff;
+    border-radius: 2px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  &__genre {
+    display: inline-block;
+    margin-bottom: 10px;
+    font-size: 18px;
+
+    &:not(:last-of-type):after {
+      content: '\00a0/\00a0';
+    }
+  }
+
+
+  &__name {
+    font-weight: bold;
+    font-size: 32px;
+  }
+
+  &__more {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 0;
+    color: #fff;
+    cursor: pointer;
+  }
+}
+
+.more {
+  &__edit,
+  &__delete {
+    font-size: 16px;
+  }
+
+  &__delete {
+    color: red;
+    font-weight: 500;
+  }
+
+  &__delete-icon {
+    color: red;
+  }
+}
