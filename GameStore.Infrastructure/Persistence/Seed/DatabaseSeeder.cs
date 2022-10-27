@@ -137,18 +137,6 @@ public static class DatabaseSeeder
             }
         }
 
-        if (await context.Users.FirstOrDefaultAsync() is null)
-        {
-            var user = new User()
-            {
-                UserName = "bekirov",
-                FirstName = "Vladyslav",
-                LastName = "Bekirov",
-            };
-
-            unitOfWork.UserRepository.Add(user);
-        }
-
         await unitOfWork.SaveChangesAsync();
     }
 }
