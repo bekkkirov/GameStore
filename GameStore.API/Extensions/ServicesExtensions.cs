@@ -105,4 +105,14 @@ public static class ServicesExtensions
                 .AddRoleValidator<RoleValidator<UserRole>>()
                 .AddEntityFrameworkStores<IdentityContext>();
     }
+
+    public static void AddDefaultCorsPolicy(this IServiceCollection services, CorsOptions options)
+    {
+        services.AddCors(opt => opt.AddPolicy(options.DefaultPolicyName, builder =>
+        {
+            builder.AllowAnyOrigin()
+                   .AllowAnyMethod()
+                   .AllowAnyHeader();
+        }));
+    }
 }
