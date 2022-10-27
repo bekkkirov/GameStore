@@ -1,4 +1,5 @@
-﻿using GameStore.Domain.Entities;
+﻿using GameStore.Application.Models;
+using GameStore.Domain.Entities;
 
 namespace GameStore.Application.Persistence.Repositories;
 
@@ -12,5 +13,5 @@ public interface IGameRepository : IRepository<Game>
 
     Task<IEnumerable<Game>> GetByPlatformAsync(int platformId);
 
-    Task<IEnumerable<Game>> SearchAsync(string pattern);
+    Task<IEnumerable<Game>> SearchAsync(GameSearchOptions searchOptions);
 }

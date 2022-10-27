@@ -32,10 +32,10 @@ public class GamesController : ControllerBase
     }
 
     [HttpGet]
-    [Route("search/{pattern}")]
-    public async Task<ActionResult<GameModel>> Search(string pattern)
+    [Route("search")]
+    public async Task<ActionResult<GameModel>> Search([FromQuery] GameSearchOptions searchOptions)
     {
-        var games = await _gameService.SearchAsync(pattern);
+        var games = await _gameService.SearchAsync(searchOptions);
 
         return Ok(games);
     }
@@ -80,5 +80,23 @@ public class GamesController : ControllerBase
     public ActionResult DownloadGame(string gameKey)
     {
         return File(new MemoryStream(), "application/octet-stream", "game.bin");
+    }
+
+    [HttpGet]
+    [Route("genres")]
+    public async Task<ActionResult<IEnumerable<GenreModel>>> GetGenres()
+    {
+        var genres = await _gameService.GetGenresAsync();
+
+        return Ok(genres);
+    }
+    
+    [HttpGet]
+    [Route("platforms")]
+    public async Task<ActionResult<IEnumerable<GenreModel>>> GetPlatforms()
+    {
+        var platforms = await _gameService.GetPlatformsAsync();
+
+        return Ok(platforms);
     }
 }
