@@ -32,7 +32,8 @@ public class ImageService : IImageService
             var uploadParams = new ImageUploadParams()
             {
                 File = new FileDescription(file.FileName, stream),
-                AllowedFormats = new string[] { "png", "jpeg" }
+                AllowedFormats = new string[] { "png", "jpeg" },
+                Transformation = new Transformation().Quality(80)
             };
 
             uploadResult = await _cloudinary.UploadAsync(uploadParams);

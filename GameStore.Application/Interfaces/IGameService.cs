@@ -13,7 +13,7 @@ public interface IGameService
 
     Task<IEnumerable<GameModel>> GetByPlatformTypeAsync(int platformId);
 
-    Task<IEnumerable<GameModel>> SearchAsync(string pattern);
+    Task<IEnumerable<GameModel>> SearchAsync(GameSearchOptions searchOptions);
 
     Task<GameModel> AddAsync(GameCreateModel game);
 
@@ -22,4 +22,8 @@ public interface IGameService
     Task<ImageModel> SetImageAsync(string key, IFormFile file);
 
     Task DeleteAsync(int gameId);
+
+    Task<IEnumerable<GenreModel>> GetGenresAsync();
+
+    Task<IEnumerable<PlatformTypeModel>> GetPlatformsAsync();
 }

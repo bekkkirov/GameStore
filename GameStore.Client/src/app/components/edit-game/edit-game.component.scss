@@ -1,0 +1,61 @@
+.edit {
+  height: 100%;
+
+  &__form {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 350px;
+  }
+}
+
+.form {
+  &__control {
+    width: 100%;
+    display: flex;
+    margin-bottom: 5px;
+  }
+
+  &__description {
+    min-height: 100px;
+  }
+
+  &__image-label {
+    background-color: #fff;
+    color: #000;
+    padding: 10px 15px;
+    border-radius: 10px;
+    margin: 0 auto 25px auto;
+  }
+
+  &__image-input {
+    display: none;
+  }
+
+  &__submit {
+    background: linear-gradient(to right, #ff1c63 0%, #5FC3E4  51%, #ff1c63  100%);
+    padding: 15px 45px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 10px;
+    width: 150px;
+
+    &:not(:disabled):hover {
+      background-position: right center;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+    }
+  }
+}
+
+mat-form-field {
+  width: 100%;
+  font-size: 18px;
+}

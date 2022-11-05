@@ -1,0 +1,26 @@
+<div class="search">
+    <form class="search__form" [formGroup]="form" (keydown.enter)="$event.preventDefault()">
+        <div class="form__control">
+            <mat-form-field appearance="outline" color="accent">
+                <mat-label>Select genres</mat-label>
+                <mat-select multiple formControlName="genreIds">
+                    <mat-option *ngFor="let genre of genres"
+                                [value]="genre.id">{{genre.name}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="form__control form__name-control">
+            <mat-form-field class="form__name-input" appearance="outline" color="accent">
+                <mat-label>Search</mat-label>
+                <input class="form__name-input" matInput formControlName="namePattern">
+                <mat-error *ngIf="form.get('namePattern').invalid">Search value is too short</mat-error>
+            </mat-form-field>
+        </div>
+        <button mat-raised-button class="form__button" (click)="reset()">Reset</button>
+        <button class="form__button"
+                mat-raised-button
+                type="submit"
+                [disabled]="form.invalid"
+                (click)="search()">Search</button>
+    </form>
+</div>

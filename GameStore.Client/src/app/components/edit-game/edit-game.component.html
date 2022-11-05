@@ -1,0 +1,70 @@
+<mat-dialog-content class="edit">
+    <form class="edit__form" [formGroup]="form">
+        <div class="form__control">
+            <mat-form-field appearance="outline" hideRequiredMarker>
+                <mat-label>Key</mat-label>
+                <input matInput formControlName="key">
+                <mat-error *ngIf="form.get('key')?.hasError('required')">This field is required</mat-error>
+                <mat-error *ngIf="form.get('key')?.hasError('minlength')">Key is too short</mat-error>
+                <mat-error *ngIf="form.get('key')?.hasError('maxlength')">Key is too long</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="form__control">
+            <mat-form-field appearance="outline" hideRequiredMarker>
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="name">
+                <mat-error *ngIf="form.get('name')?.hasError('required')">This field is required</mat-error>
+                <mat-error *ngIf="form.get('name')?.hasError('minlength')">Name is too short</mat-error>
+                <mat-error *ngIf="form.get('name')?.hasError('maxlength')">Name is too long</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="form__control">
+            <mat-form-field appearance="outline" hideRequiredMarker>
+                <mat-label>Description</mat-label>
+                <textarea class="form__description" matInput formControlName="description"></textarea>
+                <mat-error *ngIf="form.get('description')?.hasError('required')">This field is required</mat-error>
+                <mat-error *ngIf="form.get('description')?.hasError('minlength')">Description is too short
+                </mat-error>
+                <mat-error *ngIf="form.get('description')?.hasError('maxlength')">Description is too long
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="form__control">
+            <mat-form-field appearance="outline" hideRequiredMarker>
+                <mat-label>Price</mat-label>
+                <input matInput type="number" formControlName="price">
+                <mat-error *ngIf="form.get('price')?.hasError('pattern')">Price is invalid</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="form__control">
+            <mat-form-field appearance="outline" color="accent">
+                <mat-label>Genres</mat-label>
+                <mat-select multiple formControlName="genreIds">
+                    <mat-option *ngFor="let genre of genres" [value]="genre.id">{{genre.name}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="form__control">
+            <mat-form-field appearance="outline" color="accent">
+                <mat-label>Platforms</mat-label>
+                <mat-select multiple formControlName="platformIds">
+                    <mat-option *ngFor="let platform of platforms"
+                                [value]="platform.id">{{platform.type}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="form__control">
+            <label class="form__image-label">
+                <input class="form__image-input"
+                       #imageInput
+                       name="file"
+                       type="file"
+                       accept="image/png, image/jpeg">
+                Change image
+            </label>
+        </div>
+        <button class="form__submit" type="submit" (click)="editGame()" [disabled]="form.invalid">Edit</button>
+    </form>
+</mat-dialog-content>
+
+

@@ -11,6 +11,7 @@ namespace GameStore.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.Services.AddDefaultCorsPolicy(builder.Configuration.GetSection(CorsOptions.SectionName).Get<CorsOptions>());
             builder.Services.AddControllers();
             builder.Services.AddSwaggerGen();
             builder.Services.AddGameStoreContext(builder.Configuration.GetSection(DbConnectionOptions.SectionName).Get<DbConnectionOptions>());
@@ -35,6 +36,8 @@ namespace GameStore.API
             app.UseRequestMiddleware();
 
             app.ConfigureExceptionHandler();
+            app.UseCors(builder.Configuration[$"{CorsOptions.SectionName}:DefaultPolicyName"]);
+
             await app.SeedDatabase();
 
             app.UseHttpsRedirection();

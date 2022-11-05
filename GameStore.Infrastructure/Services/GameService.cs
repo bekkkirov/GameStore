@@ -104,11 +104,25 @@ public class GameService : IGameService
         return _mapper.Map<IEnumerable<GameModel>>(games);
     }
 
-    public async Task<IEnumerable<GameModel>> SearchAsync(string pattern)
+    public async Task<IEnumerable<GameModel>> SearchAsync(GameSearchOptions searchOptions)
     {
-        var games = await _unitOfWork.GameRepository.SearchAsync(pattern);
+        var games = await _unitOfWork.GameRepository.SearchAsync(searchOptions);
 
         return _mapper.Map<IEnumerable<GameModel>>(games);
+    }
+
+    public async Task<IEnumerable<GenreModel>> GetGenresAsync()
+    {
+        var genres = await _unitOfWork.GenreRepository.GetAsync();
+
+        return _mapper.Map<IEnumerable<GenreModel>>(genres);
+    }
+
+    public async Task<IEnumerable<PlatformTypeModel>> GetPlatformsAsync()
+    {
+        var platforms = await _unitOfWork.PlatformTypeRepository.GetAsync();
+
+        return _mapper.Map<IEnumerable<PlatformTypeModel>>(platforms);
     }
 
     private async Task AddGenresAndPlatforms(Game game, List<int> genreIds, List<int> platformIds)

@@ -1,4 +1,5 @@
-﻿using GameStore.Application.Persistence.Repositories;
+﻿using GameStore.Application.Models;
+using GameStore.Application.Persistence.Repositories;
 using GameStore.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -44,10 +45,22 @@ public class GameRepository : BaseRepository<Game>, IGameRepository
                            .ToListAsync();
     }
 
-    public async Task<IEnumerable<Game>> SearchAsync(string pattern)
+    public async Task<IEnumerable<Game>> SearchAsync(GameSearchOptions searchOptions)
     {
-        
-        return await _dbSet.Where(g => g.Name.Contains(pattern))
-                           .ToListAsync();
+        IQueryable<Game> query = _dbSet.Include(g => g.Image)
+                                       .Include(g => g.Genres)
+                                       .Include(g => g.PlatformTypes);
+
+        if (!string.IsNullOrWhiteSpace(searchOptions.NamePattern))
+        {
+            query = query.Where(g => g.Name.Contains(searchOptions.NamePattern));
+        }
+
+        if (searchOptions.GenreIds is not null && searchOptions.GenreIds.Any())
+        {
+            query = query.Where(g => g.Genres.Select(genre => genre.Id).Any(gId => searchOptions.GenreIds.Contains(gId)));
+        }
+
+        return await query.ToListAsync();
     }
 }
