@@ -13,8 +13,8 @@ public class MapperProfile : Profile
         CreateMap<PlatformType, PlatformTypeModel>().ReverseMap();
 
         CreateMap<Comment, CommentModel>()
-            .ForMember(d => d.Name,
-                opt => opt.MapFrom(src => $"{src.Author.FirstName} {src.Author.LastName}"));
+            .ForMember(d => d.AuthorUserName,
+                opt => opt.MapFrom(src => src.Author.UserName));
         CreateMap<CommentCreateModel, Comment>();
 
         CreateMap<Game, GameModel>();
