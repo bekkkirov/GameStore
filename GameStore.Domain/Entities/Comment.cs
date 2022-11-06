@@ -6,6 +6,10 @@ public class Comment : BaseEntity
 {
     public string Body { get; set; }
 
+    public bool IsRoot { get; set; }
+
+    public bool IsMarkedForDeletion { get; set; }
+
     public int GameId { get; set; }
     public Game Game { get; set; }
 
