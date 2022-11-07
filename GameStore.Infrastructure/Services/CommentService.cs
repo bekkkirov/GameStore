@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using GameStore.Application.Exceptions;
 using GameStore.Application.Interfaces;
 using GameStore.Application.Models;
 using GameStore.Application.Persistence;
@@ -30,6 +31,12 @@ public class CommentService : ICommentService
         var game = await _unitOfWork.GameRepository.GetByKeyAsync(gameKey);
 
         var commentToAdd = _mapper.Map<Comment>(comment);
+
+        if (commentToAdd.ParentCommentId is null)
+        {
+            commentToAdd.IsRoot = true;
+        }
+
         commentToAdd.AuthorId = user.Id;
         commentToAdd.GameId = game.Id;
 
@@ -37,5 +44,47 @@ public class CommentService : ICommentService
         await _unitOfWork.SaveChangesAsync();
 
         return _mapper.Map<CommentModel>(commentToAdd);
+    }
+
+    public async Task UpdateAsync(string requesterUserName, int commentId, CommentCreateModel updateData)
+    {
+        var commentToUpdate = await _unitOfWork.CommentRepository.GetByIdWithAuthorAsync(commentId);
+
+        if (commentToUpdate.Author.UserName != requesterUserName)
+        {
+            throw new NotAllowedException("You aren't allowed to update this comment.");
+        }
+
+        _mapper.Map(updateData, commentToUpdate);
+
+        _unitOfWork.CommentRepository.Update(commentToUpdate);
+        await _unitOfWork.SaveChangesAsync();
+    }
+
+    public async Task MarkForDeletionAsync(string requesterUserName, int commentId)
+    {
+        var comment = await _unitOfWork.CommentRepository.GetByIdWithAuthorAsync(commentId);
+
+        if (comment.Author.UserName != requesterUserName)
+        {
+            throw new NotAllowedException("You aren't allowed to delete this comment.");
+        }
+
+        comment.IsMarkedForDeletion = true;
+        await _unitOfWork.SaveChangesAsync();
+    }
+
+    public async Task DeleteMarkedCommentAsync(string userName, string gameKey)
+    {
+        await _unitOfWork.CommentRepository.RemoveMarkedCommentsAsync(userName, gameKey);
+        await _unitOfWork.SaveChangesAsync();
+    }
+
+    public async Task RestoreAsync(int commentId)
+    {
+        var comment = await _unitOfWork.CommentRepository.GetByIdAsync(commentId);
+
+        comment.IsMarkedForDeletion = false;
+        await _unitOfWork.SaveChangesAsync();
     }
 }
