@@ -2,11 +2,13 @@
 using GameStore.API.Extensions;
 using GameStore.Application.Interfaces;
 using GameStore.Application.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GameStore.API.Controllers;
 
 [ApiController]
+[Authorize]
 [Route("api/[controller]")]
 public class CommentsController : ControllerBase
 {
@@ -27,6 +29,7 @@ public class CommentsController : ControllerBase
         return CreatedAtAction(nameof(GetByGameKey), new {GameKey = gameKey}, created);
     }
 
+    [AllowAnonymous]
     [HttpGet("game/{gamekey}/comments")]
     public async Task<ActionResult<IEnumerable<CommentModel>>> GetByGameKey(string gameKey)
     {
