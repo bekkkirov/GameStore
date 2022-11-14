@@ -30,26 +30,31 @@ public class AuthenticationService : IAuthenticationService
         _signInManager = signInManager;
     }
 
-    public async Task<string> SignInAsync(SignInModel signInData)
+    public async Task<AuthResult> SignInAsync(SignInModel signInData)
     {
-        var user = await _userManager.FindByNameAsync(signInData.UserName);
+        var userIdentity = await _userManager.FindByNameAsync(signInData.UserName);
 
-        if (user is null)
+        if (userIdentity is null)
         {
             throw new IdentityException("User with specified username doesn't exist.");
         }
 
-        var result = await _signInManager.CheckPasswordSignInAsync(user, signInData.Password, false);
+        var result = await _signInManager.CheckPasswordSignInAsync(userIdentity, signInData.Password, false);
 
         if (!result.Succeeded)
         {
             throw new IdentityException("Invalid password.");
         }
 
-        return _tokenService.GenerateAccessToken(user.UserName, user.Email);
+        var user = await _unitOfWork.UserRepository.GetByUserNameAsync(userIdentity.UserName);
+
+        var authResult = new AuthResult() {Token = _tokenService.GenerateAccessToken(userIdentity.UserName, userIdentity.Email)};
+        _mapper.Map(user, authResult);
+
+        return authResult;
     }
 
-    public async Task<string> SignUpAsync(SignUpModel signUpData)
+    public async Task<AuthResult> SignUpAsync(SignUpModel signUpData)
     {
         var identityToAdd = new UserIdentity() {UserName = signUpData.UserName, Email = signUpData.Email};
 
@@ -65,6 +70,9 @@ public class AuthenticationService : IAuthenticationService
         _unitOfWork.UserRepository.Add(userToAdd);
         await _unitOfWork.SaveChangesAsync();
 
-        return _tokenService.GenerateAccessToken(identityToAdd.UserName, identityToAdd.Email);
+        var authResult = new AuthResult() { Token = _tokenService.GenerateAccessToken(identityToAdd.UserName, identityToAdd.Email) };
+        _mapper.Map(userToAdd, authResult);
+
+        return authResult;
     }
 }

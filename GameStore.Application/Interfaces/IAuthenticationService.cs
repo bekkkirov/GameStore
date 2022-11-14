@@ -4,7 +4,7 @@ namespace GameStore.Application.Interfaces;
 
 public interface IAuthenticationService
 {
-    public Task<string> SignInAsync(SignInModel signInData);
+    public Task<AuthResult> SignInAsync(SignInModel signInData);
 
-    public Task<string> SignUpAsync(SignUpModel signUpData);
+    public Task<AuthResult> SignUpAsync(SignUpModel signUpData);
 }
