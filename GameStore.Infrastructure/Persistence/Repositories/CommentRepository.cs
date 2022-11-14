@@ -18,7 +18,7 @@ public class CommentRepository : BaseRepository<Comment>, ICommentRepository
 
     public async Task<IEnumerable<Comment>> GetByGameKeyAsync(string key)
     {
-        return await _dbSet.Where(c => c.Game.Key == key &&  c.IsRoot)
+        return await _dbSet.Where(c => c.Game.Key == key && c.IsRoot)
                            .Include(c => c.Author)
                            .Include(c => c.Replies)
                            .ToListAsync();
@@ -26,8 +26,10 @@ public class CommentRepository : BaseRepository<Comment>, ICommentRepository
 
     public async Task RemoveMarkedCommentsAsync(string userName, string key)
     {
-        var commentsToDelete = await _dbSet.Where(c => c.Author.UserName == userName && c.Game.Key == key).ToListAsync();
-        
+        var commentsToDelete = await _dbSet.Include(c => c.Replies).Where(c => c.Author.UserName == userName &&
+                                                       c.Game.Key == key &&
+                                                       c.IsMarkedForDeletion).ToListAsync();
+
         _dbSet.RemoveRange(commentsToDelete);
     }
 }
