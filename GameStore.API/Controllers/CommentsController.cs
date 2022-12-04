@@ -14,7 +14,7 @@ public class CommentsController : ControllerBase
 {
     private readonly ICommentService _commentService;
 
-    public CommentsController(ICommentService commentService)
+    public CommentsController(ICommentService commentService, ICurrentUserService currentUserService)
     {
         _commentService = commentService;
     }
@@ -22,9 +22,7 @@ public class CommentsController : ControllerBase
     [HttpPost("game/{gameKey}/newComment")]
     public async Task<ActionResult<CommentModel>> AddComment(string gameKey, CommentCreateModel comment)
     {
-        var userName = User.GetUserName();
-
-        var created = await _commentService.AddAsync(userName, gameKey, comment);
+        var created = await _commentService.AddAsync(gameKey, comment);
 
         return CreatedAtAction(nameof(GetByGameKey), new {GameKey = gameKey}, created);
     }
@@ -41,9 +39,7 @@ public class CommentsController : ControllerBase
     [HttpPut("{commentId}/update")]
     public async Task<ActionResult> UpdateComment(int commentId, CommentCreateModel comment)
     {
-        var userName = User.GetUserName();
-
-        await _commentService.UpdateAsync(userName, commentId, comment);
+        await _commentService.UpdateAsync(commentId, comment);
 
         return Ok();
     }
@@ -51,9 +47,7 @@ public class CommentsController : ControllerBase
     [HttpPut("{commentId}/mark")]
     public async Task<ActionResult> MarkForDeletion(int commentId)
     {
-        var userName = User.GetUserName();
-
-        await _commentService.MarkForDeletionAsync(userName, commentId);
+        await _commentService.MarkForDeletionAsync(commentId);
 
         return Ok();
     }
@@ -61,9 +55,7 @@ public class CommentsController : ControllerBase
     [HttpDelete("game/{gameKey}/deleteMarked")]
     public async Task<ActionResult> Delete(string gameKey)
     {
-        var userName = User.GetUserName();
-
-        await _commentService.DeleteMarkedCommentAsync(userName, gameKey);
+        await _commentService.DeleteMarkedCommentAsync(gameKey);
 
         return NoContent();
     }

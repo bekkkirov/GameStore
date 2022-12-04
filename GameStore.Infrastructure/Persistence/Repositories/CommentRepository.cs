@@ -24,11 +24,12 @@ public class CommentRepository : BaseRepository<Comment>, ICommentRepository
                            .ToListAsync();
     }
 
-    public async Task RemoveMarkedCommentsAsync(string userName, string key)
+    public void RemoveMarkedCommentsAsync(string userName, string key)
     {
-        var commentsToDelete = await _dbSet.Include(c => c.Replies).Where(c => c.Author.UserName == userName &&
+        var commentsToDelete = _dbSet.Include(c => c.Replies)
+                                                      .Where(c => c.Author.UserName == userName &&
                                                        c.Game.Key == key &&
-                                                       c.IsMarkedForDeletion).ToListAsync();
+                                                       c.IsMarkedForDeletion);
 
         _dbSet.RemoveRange(commentsToDelete);
     }

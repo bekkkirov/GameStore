@@ -9,13 +9,15 @@ namespace GameStore.Infrastructure.Services;
 
 public class CommentService : ICommentService
 {
+    private readonly ICurrentUserService _currentUserService;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
 
-    public CommentService(IUnitOfWork unitOfWork, IMapper mapper)
+    public CommentService(IUnitOfWork unitOfWork, IMapper mapper, ICurrentUserService currentUserService)
     {
         _unitOfWork = unitOfWork;
         _mapper = mapper;
+        _currentUserService = currentUserService;
     }
 
     public async Task<IEnumerable<CommentModel>> GetByGameKeyAsync(string key)
@@ -25,8 +27,9 @@ public class CommentService : ICommentService
         return _mapper.Map<IEnumerable<CommentModel>>(comments);
     }
 
-    public async Task<CommentModel> AddAsync(string userName, string gameKey, CommentCreateModel comment)
+    public async Task<CommentModel> AddAsync(string gameKey, CommentCreateModel comment)
     {
+        var userName = _currentUserService.GetUsername();
         var user = await _unitOfWork.UserRepository.GetByUserNameAsync(userName);
         var game = await _unitOfWork.GameRepository.GetByKeyAsync(gameKey);
 
@@ -46,14 +49,11 @@ public class CommentService : ICommentService
         return _mapper.Map<CommentModel>(commentToAdd);
     }
 
-    public async Task UpdateAsync(string requesterUserName, int commentId, CommentCreateModel updateData)
+    public async Task UpdateAsync(int commentId, CommentCreateModel updateData)
     {
         var commentToUpdate = await _unitOfWork.CommentRepository.GetByIdWithAuthorAsync(commentId);
 
-        if (commentToUpdate.Author.UserName != requesterUserName)
-        {
-            throw new NotAllowedException("You aren't allowed to update this comment.");
-        }
+        CheckCommentAuthor(commentToUpdate);
 
         _mapper.Map(updateData, commentToUpdate);
 
@@ -61,22 +61,21 @@ public class CommentService : ICommentService
         await _unitOfWork.SaveChangesAsync();
     }
 
-    public async Task MarkForDeletionAsync(string requesterUserName, int commentId)
+    public async Task MarkForDeletionAsync(int commentId)
     {
         var comment = await _unitOfWork.CommentRepository.GetByIdWithAuthorAsync(commentId);
 
-        if (comment.Author.UserName != requesterUserName)
-        {
-            throw new NotAllowedException("You aren't allowed to delete this comment.");
-        }
+        CheckCommentAuthor(comment);
 
         comment.IsMarkedForDeletion = true;
         await _unitOfWork.SaveChangesAsync();
     }
 
-    public async Task DeleteMarkedCommentAsync(string userName, string gameKey)
+    public async Task DeleteMarkedCommentAsync(string gameKey)
     {
-        await _unitOfWork.CommentRepository.RemoveMarkedCommentsAsync(userName, gameKey);
+        var username = _currentUserService.GetUsername();
+
+        _unitOfWork.CommentRepository.RemoveMarkedCommentsAsync(username, gameKey);
         await _unitOfWork.SaveChangesAsync();
     }
 
@@ -86,5 +85,15 @@ public class CommentService : ICommentService
 
         comment.IsMarkedForDeletion = false;
         await _unitOfWork.SaveChangesAsync();
+    }
+
+    private void CheckCommentAuthor(Comment comment)
+    {
+        var currentUser = _currentUserService.GetUsername();
+
+        if (comment.Author.UserName != currentUser)
+        {
+            throw new NotAllowedException("You aren't allowed to perform this action.");
+        }
     }
 }
