@@ -20,7 +20,27 @@
                 </li>
             </ul>
             <span class="example-spacer"></span>
-            <button class="nav__sign-in">Sign in</button>
+            <button *ngIf="!(authService.currentUser$ | async);else userPanel"
+                    class="nav__sign-in"
+                    (click)="openAuthDialog()">Sign in</button>
+            <ng-template #userPanel>
+                <button class="nav__user-panel"
+                        [matMenuTriggerFor]="menu">
+                    <img    class="nav__user-image"
+                            [src]="(authService.currentUser$ | async)?.profileImage?.url ?? '../../assets/images/user.png'">
+                    <p>{{(authService.currentUser$ | async)?.userName}}</p>
+                    <mat-menu class="nav__menu" #menu="matMenu">
+                        <button mat-menu-item>
+                            <mat-icon>person</mat-icon>
+                            <span>Change profile image</span>
+                        </button>
+                        <button mat-menu-item (click)="logout()">
+                            <mat-icon>logout</mat-icon>
+                            <span>Logout</span>
+                        </button>
+                    </mat-menu>
+                </button>
+            </ng-template>
         </mat-toolbar>
     </div>
 </div>
