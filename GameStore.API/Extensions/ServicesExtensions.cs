@@ -47,6 +47,7 @@ public static class ServicesExtensions
         services.AddTransient<IUserService, UserService>();
         services.AddTransient<ITokenService, TokenService>();
         services.AddTransient<IAuthenticationService, AuthenticationService>();
+        services.AddScoped<ICurrentUserService, CurrentUserService>();
     }
 
     public static void AddFluentValidators(this IServiceCollection services)
