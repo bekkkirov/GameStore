@@ -15,6 +15,11 @@ body {
   background-color: black;
 }
 
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none;
+}
+
 .container {
   max-width: 1300px;
   margin: 0 auto;
@@ -54,7 +59,15 @@ input::-webkit-inner-spin-button {
   }
 }
 
-.edit-backdrop {
-  background: rgba(255, 255, 255, 0.25);
+.base-backdrop {
+  background: rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(5px);
+}
+
+.sign-in-dialog {
+  mat-dialog-container {
+    background-color: #000;
+    border-radius: 20px;
+    overflow: hidden;
+  }
 }
