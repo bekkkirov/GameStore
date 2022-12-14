@@ -6,5 +6,13 @@ public interface ICommentService
 {
     Task<IEnumerable<CommentModel>> GetByGameKeyAsync(string key);
 
-    Task<CommentModel> AddAsync(string userName, string gameKey, CommentCreateModel comment);
+    Task<CommentModel> AddAsync(string gameKey, CommentCreateModel comment);
+
+    Task UpdateAsync(int commentId, CommentCreateModel updateData);
+
+    Task MarkForDeletionAsync(int commentId);
+
+    Task DeleteMarkedCommentAsync(string gameKey);
+
+    Task RestoreAsync(int commentId);
 }

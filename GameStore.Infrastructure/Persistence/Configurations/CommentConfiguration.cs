@@ -9,7 +9,7 @@ public class CommentConfiguration : IEntityTypeConfiguration<Comment>
     public void Configure(EntityTypeBuilder<Comment> builder)
     {
         builder.Property(c => c.Body)
-               .HasMaxLength(250)
+               .HasMaxLength(600)
                .IsRequired();
 
         builder.HasOne(c => c.Game)

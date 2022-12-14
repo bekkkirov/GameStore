@@ -31,7 +31,6 @@
 
   <ItemGroup>
     <Folder Include="Identity\Entities\" />
-    <Folder Include="Identity\Persistence\Configurations\" />
     <Folder Include="Mapping\" />
     <Folder Include="Persistence\Seed\" />
     <Folder Include="Services\" />
