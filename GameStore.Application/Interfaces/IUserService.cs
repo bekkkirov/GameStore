@@ -7,5 +7,7 @@ public interface IUserService
 {
     Task<UserModel> GetUserInfoAsync(string userName);
 
+    Task<UserModel> GetCurrentUserInfoAsync();
+
     Task<ImageModel> SetProfileImageAsync(string userName, IFormFile image);
 }

@@ -22,9 +22,7 @@ public class UsersController : ControllerBase
     [Route("currentUser")]
     public async Task<ActionResult<UserModel>> GetCurrentUser()
     {
-        var userName = User.FindFirstValue(ClaimTypes.Name);
-
-        var user = await _userService.GetUserInfoAsync(userName);
+        var user = await _userService.GetCurrentUserInfoAsync();
 
         return Ok(user);
     }
