@@ -32,7 +32,15 @@
                     <mat-menu class="nav__menu" #menu="matMenu">
                         <button mat-menu-item>
                             <mat-icon>person</mat-icon>
-                            <span>Change profile image</span>
+                            <label>
+                                <input class="nav__change-image"
+                                       (change)="changeProfileImage()"
+                                       #imageInput
+                                       name="file"
+                                       type="file"
+                                       accept="image/png, image/jpeg">
+                                Change profile image
+                            </label>
                         </button>
                         <button mat-menu-item (click)="logout()">
                             <mat-icon>logout</mat-icon>
