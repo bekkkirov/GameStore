@@ -14,7 +14,8 @@ public class MapperProfile : Profile
 
         CreateMap<Comment, CommentModel>()
             .ForMember(d => d.AuthorUserName,
-                opt => opt.MapFrom(src => src.Author.UserName));
+                opt => opt.MapFrom(src => src.Author.UserName))
+            .ForMember(d => d.AuthorProfileImage, opt => opt.MapFrom(src => src.Author.ProfileImage));
         CreateMap<CommentCreateModel, Comment>();
 
         CreateMap<Game, GameModel>();
