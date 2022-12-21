@@ -1,0 +1,25 @@
+<div class="comment">
+    <div class="comment__inner" *ngIf="!isMarkedForDeletion;else deletedComment">
+        <div class="comment__info">
+            <img class="comment__profile-image" [src]="comment.authorProfileImage?.url ?? '../../assets/images/user.png'" alt="">
+            <span class="comment__user-name">{{ comment.authorUserName }}</span>
+            <span class="comment__time-stamp">{{ moment.utc(comment.timeStamp).local().fromNow() }}</span>
+            <div class="comment__edit-panel"
+                 *ngIf="comment.authorUserName == (authService.currentUser$ | async)?.userName">
+                <mat-icon class="comment__edit" (click)="emitEditEvent()">edit</mat-icon>
+                <mat-icon class="comment__delete" (click)="markForDeletion()">delete</mat-icon>
+            </div>
+        </div>
+        <p class="comment__body">{{ comment.body }}</p>
+        <button class="comment__reply" (click)="emitReplyEvent()">Reply</button>
+    </div>
+    <div class="comment__replies" *ngFor="let reply of comment.replies">
+        <app-comment [comment]="reply"></app-comment>
+    </div>
+    <ng-template #deletedComment>
+        <div class="deleted">
+            <p class="comment__body">[Deleted]</p>
+            <button class="deleted__restore" (click)="restore()">Restore</button>
+        </div>
+    </ng-template>
+</div>
