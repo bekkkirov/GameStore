@@ -19,7 +19,7 @@ public class CommentsController : ControllerBase
         _commentService = commentService;
     }
 
-    [HttpPost("game/{gameKey}/newComment")]
+    [HttpPost("{gameKey}/newComment")]
     public async Task<ActionResult<CommentModel>> AddComment(string gameKey, CommentCreateModel comment)
     {
         var created = await _commentService.AddAsync(gameKey, comment);
@@ -28,7 +28,7 @@ public class CommentsController : ControllerBase
     }
 
     [AllowAnonymous]
-    [HttpGet("game/{gamekey}/comments")]
+    [HttpGet("{gamekey}")]
     public async Task<ActionResult<IEnumerable<CommentModel>>> GetByGameKey(string gameKey)
     {
         var comments = await _commentService.GetByGameKeyAsync(gameKey);
@@ -52,7 +52,7 @@ public class CommentsController : ControllerBase
         return Ok();
     }
 
-    [HttpDelete("game/{gameKey}/deleteMarked")]
+    [HttpDelete("{gameKey}/deleteMarked")]
     public async Task<ActionResult> Delete(string gameKey)
     {
         await _commentService.DeleteMarkedCommentAsync(gameKey);
