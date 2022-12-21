@@ -6,6 +6,8 @@ public class CommentModel
 
     public string AuthorUserName { get; set; }
 
+    public ImageModel AuthorProfileImage { get; set; }
+
     public DateTime TimeStamp { get; set; }
 
     public string Body { get; set; }
