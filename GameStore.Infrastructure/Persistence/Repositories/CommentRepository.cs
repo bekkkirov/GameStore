@@ -20,6 +20,7 @@ public class CommentRepository : BaseRepository<Comment>, ICommentRepository
     {
         return await _dbSet.Where(c => c.Game.Key == key && c.IsRoot)
                            .Include(c => c.Author)
+                           .ThenInclude(a => a.ProfileImage)
                            .Include(c => c.Replies)
                            .ToListAsync();
     }

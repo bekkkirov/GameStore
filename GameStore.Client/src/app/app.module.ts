@@ -30,6 +30,8 @@ import { SignInComponent } from './components/sign-in/sign-in.component';
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {TokenInterceptor} from "./interceptors/token.interceptor";
 import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { CommentsListComponent } from './components/comments-list/comments-list.component';
+import { CommentComponent } from './components/comment/comment.component';
 
 @NgModule({
     declarations: [
@@ -43,6 +45,8 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
         SearchComponent,
         SignInComponent,
         SignUpComponent,
+        CommentsListComponent,
+        CommentComponent,
     ],
     imports: [
         BrowserModule,

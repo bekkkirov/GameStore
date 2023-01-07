@@ -55,7 +55,7 @@ public class CommentService : ICommentService
 
         CheckCommentAuthor(commentToUpdate);
 
-        _mapper.Map(updateData, commentToUpdate);
+        commentToUpdate.Body = updateData.Body;
 
         _unitOfWork.CommentRepository.Update(commentToUpdate);
         await _unitOfWork.SaveChangesAsync();

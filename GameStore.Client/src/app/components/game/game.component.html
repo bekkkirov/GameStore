@@ -26,6 +26,7 @@
                 </mat-chip>
             </mat-chip-list>
             <hr>
+            <app-comments-list *ngIf="game?.key" [gameKey]="game.key"></app-comments-list>
         </div>
     </div>
 </div>

@@ -1,0 +1,77 @@
+.comment {
+  font-size: 18px;
+  margin-bottom: 20px;
+
+  &__inner {
+    &:hover {
+      .comment__edit-panel {
+        display: block;
+      }
+    }
+  }
+
+  &__info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  &__edit-panel {
+    margin-left: auto;
+    display: none;
+  }
+
+  &__edit,
+  &__delete {
+    font-size: 25px;
+    cursor: pointer;
+  }
+
+  &__edit {
+
+  }
+
+  &__delete {
+    color: red;
+  }
+
+  &__user-name {
+    margin-right: 20px;
+  }
+
+  &__profile-image {
+    width: 32px;
+    height: 32px;
+    margin-right: 15px;
+  }
+
+  &__reply {
+    background: none;
+    color: #4848ff;
+    font-size: 16px;
+    margin: 0 0 20px 10px;
+    cursor: pointer;
+  }
+
+  &__replies {
+    margin-left: 30px;
+  }
+}
+
+.deleted {
+  display: flex;
+  align-items: center;
+  margin: 0 0 20px 0;
+
+  .comment__body {
+    margin: 0;
+  }
+
+  &__restore {
+    background: none;
+    color: #fff;
+    padding: 0;
+    margin: 0 0 0 50px;
+    cursor: pointer;
+  }
+}
