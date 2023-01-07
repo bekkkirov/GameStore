@@ -24,5 +24,6 @@ public class MapperProfile : Profile
 
         CreateMap<SignUpModel, User>();
         CreateMap<User, UserModel>();
+        CreateMap<User, AuthResult>();
     }
 }

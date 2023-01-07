@@ -11,13 +11,23 @@ public class UserService : IUserService
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IImageService _imageService;
+    private readonly ICurrentUserService _currentUserService;
     private readonly IMapper _mapper;
 
-    public UserService(IUnitOfWork unitOfWork, IImageService imageService, IMapper mapper)
+    public UserService(IUnitOfWork unitOfWork, IImageService imageService,
+                       ICurrentUserService currentUserService, IMapper mapper)
     {
         _unitOfWork = unitOfWork;
         _imageService = imageService;
+        _currentUserService = currentUserService;
         _mapper = mapper;
+    }
+
+    public async Task<UserModel> GetCurrentUserInfoAsync()
+    {
+        var userName = _currentUserService.GetUsername();
+
+        return await GetUserInfoAsync(userName);
     }
 
     public async Task<UserModel> GetUserInfoAsync(string userName)

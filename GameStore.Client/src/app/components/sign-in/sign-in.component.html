@@ -1,0 +1,28 @@
+<div class="sign-in">
+    <div class="sign-in__inner">
+        <h1 class="sign-in__title">Please login</h1>
+        <form class="sign-in__form" [formGroup]="form">
+            <div class="form__control">
+                <mat-form-field appearance="outline" hideRequiredMarker>
+                    <mat-label>Name</mat-label>
+                    <input matInput formControlName="userName">
+                    <mat-error>This field is required</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="form__control">
+                <mat-form-field appearance="outline" hideRequiredMarker>
+                    <mat-label>Password</mat-label>
+                    <input matInput type="password" formControlName="password">
+                    <mat-error>This field is required</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="form__control">
+            <mat-checkbox color="accent" checked>Remember me</mat-checkbox>
+            </div>
+            <button class="sign-in__submit" mat-raised-button color="primary" (click)="signIn()">Sign in</button>
+            <p class="sign-up">Don't have an account?
+                <span class="sign-up__link" (click)="openSignUpDialog()"> Sign up!</span>
+            </p>
+        </form>
+    </div>
+</div>

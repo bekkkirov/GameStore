@@ -26,6 +26,10 @@ import {MatDialogModule} from "@angular/material/dialog";
 import { SearchComponent } from './components/search/search.component';
 import {SpinnerInterceptor} from "./interceptors/spinner.interceptor";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import { SignInComponent } from './components/sign-in/sign-in.component';
+import {MatCheckboxModule} from "@angular/material/checkbox";
+import {TokenInterceptor} from "./interceptors/token.interceptor";
+import { SignUpComponent } from './components/sign-up/sign-up.component';
 
 @NgModule({
     declarations: [
@@ -37,6 +41,8 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
         AddGameComponent,
         EditGameComponent,
         SearchComponent,
+        SignInComponent,
+        SignUpComponent,
     ],
     imports: [
         BrowserModule,
@@ -53,7 +59,8 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
         MatSelectModule,
         ReactiveFormsModule,
         MatDialogModule,
-        MatProgressSpinnerModule
+        MatProgressSpinnerModule,
+        MatCheckboxModule
     ],
     providers:  [
         {
@@ -64,6 +71,12 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
         {
             provide: HTTP_INTERCEPTORS,
             useClass: SpinnerInterceptor,
+            multi: true
+        },
+
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: TokenInterceptor,
             multi: true
         }
     ],

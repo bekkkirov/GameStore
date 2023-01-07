@@ -1,6 +1,7 @@
 ﻿using System.Security.Claims;
 using GameStore.Application.Interfaces;
 using GameStore.Application.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GameStore.API.Controllers;
@@ -14,6 +15,16 @@ public class UsersController : ControllerBase
     public UsersController(IUserService userService)
     {
         _userService = userService;
+    }
+
+    [HttpGet]
+    [Authorize]
+    [Route("currentUser")]
+    public async Task<ActionResult<UserModel>> GetCurrentUser()
+    {
+        var user = await _userService.GetCurrentUserInfoAsync();
+
+        return Ok(user);
     }
 
     [HttpGet]

@@ -1,0 +1,89 @@
+<div class="sign-up">
+    <div class="sign-up__inner">
+        <h1 class="sign-up__title">Sign up</h1>
+        <form [formGroup]="form" class="sign-up__form">
+            <div class="form__control">
+                <mat-form-field appearance="outline" hideRequiredMarker>
+                    <mat-label>Username</mat-label>
+                    <input matInput formControlName="userName">
+                    <mat-error *ngIf="form.get('userName')?.hasError('required')">
+                        This field is required
+                    </mat-error>
+                    <mat-error *ngIf="form.get('userName')?.hasError('minlength')">
+                        Username must be at least 5 characters long
+                    </mat-error>
+                    <mat-error *ngIf="form.get('userName')?.hasError('maxlength')">
+                        Username length can't exceed 20 characters
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="form__control">
+                <mat-form-field appearance="outline" hideRequiredMarker>
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="email">
+                    <mat-error *ngIf="form.get('email')?.hasError('required')">
+                        This field is required
+                    </mat-error>
+                    <mat-error *ngIf="form.get('email')?.hasError('email')">
+                        Email is invalid
+                    </mat-error>
+                    <mat-error *ngIf="form.get('email')?.hasError('maxlength')">
+                        Email length can't exceed 50 characters
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="form__control">
+                <mat-form-field appearance="outline" hideRequiredMarker>
+                    <mat-label>First name</mat-label>
+                    <input matInput formControlName="firstName">
+                    <mat-error *ngIf="form.get('firstName')?.hasError('required')">
+                        This field is required
+                    </mat-error>
+                    <mat-error *ngIf="form.get('firstName')?.hasError('minlength')">
+                        First name must be at least 2 characters long
+                    </mat-error>
+                    <mat-error *ngIf="form.get('firstName')?.hasError('maxlength')">
+                        First name length can't exceed 20 characters
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="form__control">
+                <mat-form-field appearance="outline" hideRequiredMarker>
+                    <mat-label>Last name</mat-label>
+                    <input matInput formControlName="lastName">
+                    <mat-error *ngIf="form.get('lastName')?.hasError('required')">
+                        This field is required
+                    </mat-error>
+                    <mat-error *ngIf="form.get('lastName')?.hasError('minlength')">
+                        Last name must be at least 2 characters long
+                    </mat-error>
+                    <mat-error *ngIf="form.get('lastName')?.hasError('maxlength')">
+                        Last name length can't exceed 20 characters
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="form__control">
+                <mat-form-field appearance="outline" hideRequiredMarker>
+                    <mat-label>Password</mat-label>
+                    <input matInput formControlName="password">
+                    <mat-error *ngIf="form.get('password')?.hasError('required')">
+                        This field is required
+                    </mat-error>
+                    <mat-error *ngIf="form.get('password')?.hasError('minlength')">
+                        Password must be at least 5 characters long
+                    </mat-error>
+                    <mat-error *ngIf="form.get('password')?.hasError('maxlength')">
+                        Password length can't exceed 20 characters
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <button class="sign-up__submit"
+                    type="submit"
+                    mat-raised-button
+                    color="primary"
+                    (click)="signUp()"
+                    [disabled]=form.invalid>Submit
+            </button>
+        </form>
+    </div>
+</div>

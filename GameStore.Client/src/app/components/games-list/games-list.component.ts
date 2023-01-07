@@ -59,7 +59,7 @@ export class GamesListComponent implements OnInit {
         this.editDialog.open(EditGameComponent, {
             height: '90vh',
             panelClass: 'edit-dialog',
-            backdropClass: 'edit-backdrop',
+            backdropClass: 'base-backdrop',
             data: game
         });
     }
