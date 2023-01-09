@@ -13,4 +13,6 @@ public class User : BaseEntity
     public Image ProfileImage { get; set; }
 
     public List<Comment> Comments { get; set; } = new List<Comment>();
+
+    public List<Order> Orders { get; set; } = new List<Order>();
 }
