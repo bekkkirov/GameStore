@@ -36,6 +36,7 @@ public static class ServicesExtensions
         services.AddScoped<ICommentRepository, CommentRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IImageRepository, ImageRepository>();
+        services.AddScoped<IOrderRepository, OrderRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
     }
 
@@ -45,6 +46,7 @@ public static class ServicesExtensions
         services.AddTransient<IGameService, GameService>();
         services.AddTransient<IImageService, ImageService>();
         services.AddTransient<IUserService, UserService>();
+        services.AddTransient<IOrderService, OrderService>();
         services.AddTransient<ITokenService, TokenService>();
         services.AddTransient<IAuthenticationService, AuthenticationService>();
         services.AddScoped<ICurrentUserService, CurrentUserService>();
