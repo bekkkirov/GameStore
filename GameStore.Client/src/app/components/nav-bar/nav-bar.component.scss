@@ -66,6 +66,12 @@
   &__change-image {
     display: none;
   }
+
+  &__cart {
+    margin: 0 0 0 20px;
+    font-size: 30px;
+    cursor: pointer;
+  }
 }
 
 .logo {
