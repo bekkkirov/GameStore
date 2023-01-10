@@ -32,6 +32,9 @@ import {TokenInterceptor} from "./interceptors/token.interceptor";
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { CommentsListComponent } from './components/comments-list/comments-list.component';
 import { CommentComponent } from './components/comment/comment.component';
+import { CartComponent } from './components/cart/cart.component';
+import { OrderComponent } from './components/order/order.component';
+import {ToastrModule} from "ngx-toastr";
 
 @NgModule({
     declarations: [
@@ -47,6 +50,8 @@ import { CommentComponent } from './components/comment/comment.component';
         SignUpComponent,
         CommentsListComponent,
         CommentComponent,
+        CartComponent,
+        OrderComponent,
     ],
     imports: [
         BrowserModule,
@@ -64,7 +69,10 @@ import { CommentComponent } from './components/comment/comment.component';
         ReactiveFormsModule,
         MatDialogModule,
         MatProgressSpinnerModule,
-        MatCheckboxModule
+        MatCheckboxModule,
+        ToastrModule.forRoot({
+            positionClass: 'toast-bottom-right'
+        })
     ],
     providers:  [
         {

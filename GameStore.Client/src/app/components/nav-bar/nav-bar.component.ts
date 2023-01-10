@@ -5,6 +5,7 @@ import {AuthService} from "../../services/auth.service";
 import {User} from "../../models/user";
 import {UserService} from "../../services/user.service";
 import {EMPTY, mergeMap} from "rxjs";
+import {CartComponent} from "../cart/cart.component";
 
 @Component({
     selector: 'app-nav-bar',
@@ -14,7 +15,7 @@ import {EMPTY, mergeMap} from "rxjs";
 export class NavBarComponent implements OnInit {
     @ViewChild('imageInput') imageInput;
 
-    constructor(private authDialog: MatDialog,
+    constructor(private matDialog: MatDialog,
                 public authService: AuthService,
                 private userService: UserService) {
     }
@@ -23,9 +24,18 @@ export class NavBarComponent implements OnInit {
     }
 
     openAuthDialog() {
-        this.authDialog.open(SignInComponent, {
+        this.matDialog.open(SignInComponent, {
             height: '500px',
             width: '500px',
+            panelClass: 'sign-in-dialog',
+            backdropClass: 'base-backdrop'
+        });
+    }
+
+    openCartDialog() {
+        this.matDialog.open(CartComponent, {
+            height: '500px',
+            width: '600px',
             panelClass: 'sign-in-dialog',
             backdropClass: 'base-backdrop'
         });

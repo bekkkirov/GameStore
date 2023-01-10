@@ -19,12 +19,15 @@ public class UnitOfWork : IUnitOfWork
 
     public IImageRepository ImageRepository {get;}
 
+    public IOrderRepository OrderRepository { get; }
+
     public UnitOfWork(IUserRepository userRepository,
                       IGameRepository gameRepository,
                       ICommentRepository commentRepository,
                       IGenreRepository genreRepository,
                       IPlatformTypeRepository platformTypeRepository,
                       IImageRepository imageRepository,
+                      IOrderRepository orderRepository,
                       GameStoreContext context)
     {
         UserRepository = userRepository;
@@ -33,6 +36,8 @@ public class UnitOfWork : IUnitOfWork
         GenreRepository = genreRepository;
         PlatformTypeRepository = platformTypeRepository;
         ImageRepository = imageRepository;
+        OrderRepository = orderRepository;
+
         _context = context;
     }
 

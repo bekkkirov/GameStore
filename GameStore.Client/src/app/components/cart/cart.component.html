@@ -1,0 +1,27 @@
+<div class="cart">
+    <div class="cart__inner" *ngIf="cart && cart.length; else emptyCart">
+        <h1 class="cart__title">Cart</h1>
+        <div class="cart__item" *ngFor="let item of cart">
+            <span class="item__name">{{item.game.name}}</span>
+            <span class="item__price">{{ (item.amount == 1 ? item.game.price : item.game.price * item.amount) | number: '1.2-2'}}$</span>
+            <div class="item__amount">
+                <span>{{item.amount}}</span>
+                <mat-icon class="item__plus" (click)="cartService.increaseAmount(item.game.id)">add</mat-icon>
+                <mat-icon class="item__minus" (click)="cartService.decreaseAmount(item.game.id)">remove</mat-icon>
+            </div>
+            <mat-icon class="item__delete" (click)="cartService.removeFromCart(item.game.id)">delete</mat-icon>
+        </div>
+        <p class="cart__total-price">Total price: {{getTotalPrice() | number: '1.2-2'}}$</p>
+        <button class="cart__order"
+                mat-raised-button
+                color="primary"
+                (click)="openOrderDialog()">Order</button>
+    </div>
+    <ng-template #emptyCart>
+        <div class="cart__empty">
+            <p>Wow, so empty.....</p>
+            <p>Try to buy something, idk</p>
+        </div>
+
+    </ng-template>
+</div>

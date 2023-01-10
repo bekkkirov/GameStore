@@ -16,5 +16,7 @@ public interface IUnitOfWork
 
     public IImageRepository ImageRepository { get; }
 
+    public IOrderRepository OrderRepository { get; }
+
     Task SaveChangesAsync();
 }
