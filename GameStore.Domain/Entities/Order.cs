@@ -19,5 +19,6 @@ public class Order : BaseEntity
     public int UserId { get; set; }
     public User User { get; set; }
 
-    public List<OrderItem> Items { get; set; } = new List<OrderItem>();
+    public int CartId { get; set; }
+    public Cart Cart { get; set; }
 }

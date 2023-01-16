@@ -9,6 +9,6 @@ public class OrderItem : BaseEntity
     public int GameId { get; set; }
     public Game Game { get; set; }
 
-    public int OrderId { get; set; }
-    public Order Order { get; set; }
+    public int CartId { get; set; }
+    public Cart Cart { get; set; }
 }
