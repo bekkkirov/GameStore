@@ -12,7 +12,8 @@ public class OrderRepository : BaseRepository<Order>, IOrderRepository
 
     public async Task<Order> GetByIdWithItemsAsync(int id)
     {
-        return await _dbSet.Include(o => o.Items)
+        return await _dbSet.Include(o => o.Cart)
+                           .ThenInclude(c => c.Items)
                            .FirstOrDefaultAsync(o => o.Id == id);
     }
 }
