@@ -30,25 +30,27 @@ public static class ServicesExtensions
 
     public static void AddRepositories(this IServiceCollection services)
     {
-        services.AddScoped<IGameRepository, GameRepository>();
-        services.AddScoped<IGenreRepository, GenreRepository>();
-        services.AddScoped<IPlatformTypeRepository, PlatformTypeRepository>();
-        services.AddScoped<ICommentRepository, CommentRepository>();
-        services.AddScoped<IUserRepository, UserRepository>();
-        services.AddScoped<IImageRepository, ImageRepository>();
-        services.AddScoped<IOrderRepository, OrderRepository>();
-        services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddTransient<IGameRepository, GameRepository>();
+        services.AddTransient<IGenreRepository, GenreRepository>();
+        services.AddTransient<IPlatformTypeRepository, PlatformTypeRepository>();
+        services.AddTransient<ICommentRepository, CommentRepository>();
+        services.AddTransient<IUserRepository, UserRepository>();
+        services.AddTransient<IImageRepository, ImageRepository>();
+        services.AddTransient<IOrderRepository, OrderRepository>();
+        services.AddTransient<ICartRepository, CartRepository>();
+        services.AddTransient<IUnitOfWork, UnitOfWork>();
     }
 
     public static void AddApplicationServices(this IServiceCollection services)
     {
-        services.AddTransient<ICommentService, CommentService>();
-        services.AddTransient<IGameService, GameService>();
-        services.AddTransient<IImageService, ImageService>();
-        services.AddTransient<IUserService, UserService>();
-        services.AddTransient<IOrderService, OrderService>();
-        services.AddTransient<ITokenService, TokenService>();
-        services.AddTransient<IAuthenticationService, AuthenticationService>();
+        services.AddScoped<ICommentService, CommentService>();
+        services.AddScoped<IGameService, GameService>();
+        services.AddScoped<IImageService, ImageService>();
+        services.AddScoped<IUserService, UserService>();
+        services.AddScoped<IOrderService, OrderService>();
+        services.AddScoped<ICartService, CartService>();
+        services.AddScoped<ITokenService, TokenService>();
+        services.AddScoped<IAuthenticationService, AuthenticationService>();
         services.AddScoped<ICurrentUserService, CurrentUserService>();
     }
 
