@@ -17,8 +17,8 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
                .HasMaxLength(20);
 
         builder.Property(o => o.Phone)
-               .HasMaxLength(15)
-               .IsRequired();
+               .IsRequired()
+               .HasMaxLength(15);
 
         builder.Property(o => o.Email)
                .IsRequired()
@@ -32,8 +32,13 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
                    v => v.ToString(),
                    v => (PaymentType)Enum.Parse(typeof(PaymentType), v));
 
+        builder.HasOne(o => o.Cart)
+               .WithOne()
+               .HasForeignKey<Order>(o => o.CartId);
+
         builder.HasOne(o => o.User)
                .WithMany(u => u.Orders)
-               .HasForeignKey(o => o.UserId);
+               .HasForeignKey(o => o.UserId)
+               .OnDelete(DeleteBehavior.NoAction);
     }
 }

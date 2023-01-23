@@ -11,9 +11,9 @@ public class OrderItemConfiguration : IEntityTypeConfiguration<OrderItem>
         builder.Property(i => i.Amount)
                .IsRequired();
 
-        builder.HasOne(i => i.Order)
+        builder.HasOne(i => i.Cart)
                .WithMany(o => o.Items)
-               .HasForeignKey(i => i.OrderId);
+               .HasForeignKey(i => i.CartId);
 
         builder.HasOne(i => i.Game)
                .WithMany()
