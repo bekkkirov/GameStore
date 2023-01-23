@@ -26,5 +26,12 @@ public class MapperProfile : Profile
         CreateMap<SignUpModel, User>();
         CreateMap<User, UserModel>();
         CreateMap<User, AuthResult>();
+
+        CreateMap<Cart, CartModel>();
+
+        CreateMap<CreateOrderItemModel, OrderItem>();
+        CreateMap<OrderItemModel, OrderItem>().ReverseMap();
+        CreateMap<CreateOrderModel, Order>();
+        CreateMap<Order, OrderModel>();
     }
 }

@@ -26,5 +26,9 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.HasOne(u => u.ProfileImage)
                .WithOne(i => i.User)
                .HasForeignKey<Image>(i => i.UserId);
+
+        builder.HasMany(u => u.Carts)
+               .WithOne(c => c.User)
+               .HasForeignKey(c => c.UserId);
     }
 }

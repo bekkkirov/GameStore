@@ -1,0 +1,61 @@
+<div class="order">
+    <div class="order__inner">
+        <form class="order__form" [formGroup]="form">
+            <div class="form__control">
+                <mat-form-field appearance="outline" hideRequiredMarker>
+                    <mat-label>First name</mat-label>
+                    <input matInput formControlName="firstName">
+                    <mat-error *ngIf="form.get('firstName')?.hasError('required')">This field is required</mat-error>
+                    <mat-error *ngIf="form.get('firstName')?.hasError('minlength')">First name is too short</mat-error>
+                    <mat-error *ngIf="form.get('firstName')?.hasError('maxlength')">First name is too long</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="form__control">
+                <mat-form-field appearance="outline" hideRequiredMarker>
+                    <mat-label>Last name</mat-label>
+                    <input matInput formControlName="lastName">
+                    <mat-error *ngIf="form.get('lastName')?.hasError('required')">This field is required</mat-error>
+                    <mat-error *ngIf="form.get('lastName')?.hasError('minlength')">Last name is too short</mat-error>
+                    <mat-error *ngIf="form.get('lastName')?.hasError('maxlength')">Last name is too long</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="form__control">
+                <mat-form-field appearance="outline" hideRequiredMarker>
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="email">
+                    <mat-error *ngIf="form.get('email')?.hasError('required')">This field is required</mat-error>
+                    <mat-error *ngIf="form.get('email')?.hasError('email')">Provide a valid email</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="form__control">
+                <mat-form-field appearance="outline" hideRequiredMarker>
+                    <mat-label>Phone</mat-label>
+                    <input matInput formControlName="phone">
+                    <mat-error *ngIf="form.get('phone')?.hasError('required')">This field is required</mat-error>
+                    <mat-error *ngIf="form.get('phone')?.hasError('maxlength')">Phone is too long</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="form__control">
+                <mat-form-field appearance="outline">
+                    <mat-label>Comment</mat-label>
+                    <input matInput formControlName="comment">
+                    <mat-error *ngIf="form.get('comment')?.hasError('maxlength')">Comment is too long</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="form__control">
+                <mat-form-field appearance="outline" color="accent" hideRequiredMarker>
+                    <mat-label>Payment type</mat-label>
+                    <mat-select formControlName="paymentType">
+                        <mat-option [value]="0">Cash</mat-option>
+                        <mat-option [value]="1">Card</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </form>
+        <button class="order__submit"
+                mat-raised-button
+                color="primary"
+                [disabled]="form.invalid"
+                (click)="order()">Order</button>
+    </div>
+</div>

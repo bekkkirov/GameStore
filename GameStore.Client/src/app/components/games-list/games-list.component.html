@@ -11,7 +11,7 @@
                     <div class="game__pop-up">
                         <div class="game__purchase">
                             <span class="game__price">${{game.price | number: '1.2-2'}}</span>
-                            <button class="game__buy">BUY</button>
+                            <button class="game__buy" (click)="buy(game.id, game.key)">BUY</button>
                         </div>
                         <div class="game__info">
                             <span class="game__genre" *ngFor="let genre of game.genres"> {{genre.name}}</span>

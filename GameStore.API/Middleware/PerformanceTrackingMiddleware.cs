@@ -22,6 +22,6 @@ public class PerformanceTrackingMiddleware
 
         timer.Stop();
 
-        _logger.LogInformation($"Elapsed time: {timer.ElapsedMilliseconds} ms.");
+        _logger.LogInformation("Elapsed time: {ElapsedMilliseconds} ms.", timer.ElapsedMilliseconds);
     }
 }

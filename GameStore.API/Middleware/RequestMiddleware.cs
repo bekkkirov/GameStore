@@ -13,7 +13,8 @@ public class RequestMiddleware
 
     public async Task InvokeAsync(HttpContext context)
     {
-        _logger.LogInformation($"Requested route {context.Request.Path.Value} from IP {context.Connection.RemoteIpAddress}.");
+        _logger.LogInformation("Requested route {Route} from IP {IP}.",
+            context.Request.Path.Value, context.Connection.RemoteIpAddress);
 
         await _next(context);
     }

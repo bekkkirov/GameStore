@@ -5,6 +5,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {EditGameComponent} from "../edit-game/edit-game.component";
 import {ActivatedRoute, ParamMap} from "@angular/router";
 import {GameSearchOptions} from "../../models/game-search-options";
+import {CartService} from "../../services/cart.service";
 
 @Component({
     selector: 'app-games-list',
@@ -16,6 +17,7 @@ export class GamesListComponent implements OnInit {
     searchOptions: GameSearchOptions = new GameSearchOptions();
 
     constructor(private gameService: GameService,
+                private cartService: CartService,
                 private editDialog: MatDialog,
                 private route: ActivatedRoute) {
     }
@@ -62,5 +64,9 @@ export class GamesListComponent implements OnInit {
             backdropClass: 'base-backdrop',
             data: game
         });
+    }
+
+    buy(gameId: number, gameKey: string) {
+        this.cartService.addToCart(gameId, gameKey, 1);
     }
 }
