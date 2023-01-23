@@ -91,6 +91,19 @@ public static class ServicesExtensions
                         ClockSkew = TimeSpan.Zero,
                         ValidateLifetime = true,
                     };
+
+                    opt.Events = new JwtBearerEvents()
+                    {
+                        OnMessageReceived = (context) =>
+                        {
+                            if (context.Request.Cookies.ContainsKey("Access-Token"))
+                            {
+                                context.Token = context.Request.Cookies["Access-Token"];
+                            }
+
+                            return Task.CompletedTask;
+                        }
+                    };
                 });
     }
     
