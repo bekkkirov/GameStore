@@ -31,8 +31,13 @@ public class OrderService : IOrderService
         var userName = _currentUserService.GetUsername();
         var currentUser = await _unitOfWork.UserRepository.GetByUserNameAsync(userName);
 
+        var cart = await _unitOfWork.CartRepository.GetCurrentCartAsync(userName);
+
         var orderToAdd = _mapper.Map<Order>(order);
         orderToAdd.UserId = currentUser.Id;
+        orderToAdd.CartId = cart.Id;
+
+        cart.IsOrdered = true;
 
         _unitOfWork.OrderRepository.Add(orderToAdd);
         await _unitOfWork.SaveChangesAsync();
