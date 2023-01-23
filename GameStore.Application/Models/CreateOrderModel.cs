@@ -15,6 +15,4 @@ public class CreateOrderModel
     public string Comment { get; set; }
 
     public int PaymentType { get; set; }
-
-    public List<OrderItemModel> Items { get; set; } = new List<OrderItemModel>();
 }
